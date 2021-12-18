@@ -1,6 +1,6 @@
 {
   "name": "@thesunny/script-utils",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "author": "Sunny Hirai <thesunny@gmail.com>",
   "license": "MIT",
   "main": ".dist/src/index.js",
@@ -9,8 +9,11 @@
     ".dist/**/*"
   ],
   "dependencies": {
-    "chalk": "^4",
+    "chalk": "^5.0.0",
     "fs-extra": "^10.0.0"
+  },
+  "dependenciesComments": {
+    "chalk": "Must be version 4. 5 will break in ts-jest because it is esm only. Fix supposed to be in typescript 4.6."
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.13",
