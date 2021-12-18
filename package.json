@@ -1,6 +1,6 @@
 {
   "name": "@thesunny/script-utils",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "author": "Sunny Hirai <thesunny@gmail.com>",
   "license": "MIT",
   "main": ".dist/src/index.js",
@@ -8,7 +8,9 @@
   "files": [
     ".dist/**/*"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "fs-extra": "^10.0.0"
+  },
   "devDependencies": {
     "@types/jest": "^26.0.23",
     "@types/node": "^14.14.3",
