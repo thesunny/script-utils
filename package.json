@@ -1,6 +1,6 @@
 {
   "name": "@thesunny/script-utils",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "author": "Sunny Hirai <thesunny@gmail.com>",
   "license": "MIT",
   "main": ".dist/src/index.js",
@@ -13,12 +13,13 @@
     "fs-extra": "^10.0.0"
   },
   "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
     "@types/jest": "^26.0.23",
     "@types/node": "^14.14.3",
     "jest": "^27.0.6",
     "ts-jest": "^27.0.3",
     "type-fest": "^2.5.2",
-    "typescript": "^4.4.3"
+    "typescript": "^4.5.4"
   },
   "scripts": {
     "build": "rm -rf ./.dist/ && tsc -p tsconfig.ts-build.json && echo 'Finished Building'",
