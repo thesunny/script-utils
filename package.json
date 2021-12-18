@@ -1,6 +1,6 @@
 {
   "name": "@thesunny/script-utils",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "author": "Sunny Hirai <thesunny@gmail.com>",
   "license": "MIT",
   "main": ".dist/src/index.js",
@@ -9,7 +9,7 @@
     ".dist/**/*"
   ],
   "dependencies": {
-    "chalk": "^5.0.0",
+    "chalk": "^4",
     "fs-extra": "^10.0.0"
   },
   "dependenciesComments": {
