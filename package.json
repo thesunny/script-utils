@@ -1,6 +1,6 @@
 {
-  "name": "@thesunny/npm-starter-kit",
-  "version": "0.1.2",
+  "name": "@thesunny/script-utils",
+  "version": "0.1.1",
   "author": "Sunny Hirai <thesunny@gmail.com>",
   "license": "MIT",
   "main": ".dist/src/index.js",
