@@ -4,6 +4,9 @@ node_modules/
 # Ignore distribution directory
 .dist/
 
+# Ignore temporary directory for creating and destroying files in tests
+.test/
+
 # Ignore log files
 logs
 *.log
