@@ -104,6 +104,31 @@ describe("script-utils", () => {
     })
   })
 
+  describe("removeFileIfExists", () => {
+    it("should pass if file doesn't exist", async () => {
+      const PATH = ".test/src/file-we-cant-remove-because-it-does-not-exist.txt"
+      util.removeFileIfExists(PATH)
+      expect(getLog()).toMatch(/remove file/i)
+      expect(getLog()).toMatch(/file does not exist/i)
+    })
+
+    it("should remove a file if it exists", async () => {
+      const PATH = ".test/src/remove-file-that-exists.txt"
+      util.writeFile(PATH, "hello", { silent: true })
+      util.removeFileIfExists(PATH)
+      expect(getLog()).toMatch(/remove file/i)
+      expect(getLog()).toMatch(/removed/i)
+    })
+
+    it("should fail if its a directory", async () => {
+      const DIR = ".test/src/dir-that-exists"
+      fs.ensureDirSync(DIR)
+      expect(() => util.removeFileIfExists(DIR)).toThrow(/not a file/i)
+      expect(getLog()).toMatch(/remove file/i)
+      expect(getLog()).toMatch(/not a file/i)
+    })
+  })
+
   describe("ensureFileExists and ensureFileContains", () => {
     it("should fail ensureFileExists", async () => {
       const PATH = ".test/src/should-fail-ensureFileExists.txt"

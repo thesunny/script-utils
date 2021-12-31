@@ -158,6 +158,23 @@ export function emptyDir(dir: string) {
 }
 
 /**
+ * Remove file if it exists.
+ */
+export function removeFileIfExists(path: string) {
+  task(`Remove file ${stringify(path)}`)
+  if (!fs.pathExistsSync(path)) {
+    pass(`File does not exist. Okay to continue.`)
+    return
+  }
+  const stats = fs.statSync(path)
+  if (!stats.isFile()) {
+    fail(`Path ${stringify(path)} exists but is not a file`)
+  }
+  fs.rmSync(path)
+  pass(`Removed`)
+}
+
+/**
  * Copy file from src to dest creating the dest dir if required.
  *
  * If `dest` exists, we throw an error. We do this because we want our
