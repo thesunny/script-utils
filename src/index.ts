@@ -23,9 +23,10 @@ const log = {
   title: Log(chalk.yellowBright),
   heading: Log(chalk.yellowBright),
   task: Log(chalk.yellow),
-  message: Log(chalk.yellow),
+  message: Log(chalk.hex("#c0c0a0")),
+  alert: Log(chalk.hex("FF9010")),
   pass: Log(chalk.greenBright),
-  skip: Log(chalk.green),
+  skip: Log(chalk.hex("#006000")),
   fail: Log(chalk.redBright),
 }
 
@@ -45,7 +46,15 @@ export function pass(text: string) {
  * Shortcut `skip` method with a dimmer checkmark
  */
 export function skip(text: string) {
-  log.pass(`  ✓ ${text}\n`)
+  log.skip(`  ✓ ${text}\n`)
+}
+
+export function message(text: string) {
+  log.message(`  ${text.split("\n").join("\n  ")}\n`)
+}
+
+export function alert(text: string) {
+  log.alert(`🔥 ${text.split("\n").join("\n  ")}\n`)
 }
 
 /**
@@ -64,7 +73,7 @@ export function fail(value: string | unknown) {
 /**
  * Pretty Print a `string` or `RegExp` value
  */
-function stringify(value: string | RegExp) {
+export function stringify(value: string | RegExp) {
   if (typeof value === "string") {
     return chalk.yellowBright(JSON.stringify(value))
   } else {

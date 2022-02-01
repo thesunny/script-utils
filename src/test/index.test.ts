@@ -73,6 +73,36 @@ describe("script-utils", () => {
     })
   })
 
+  describe("output", () => {
+    it("should task", async () => {
+      util.task("task")
+      expect(getLog(0)).toMatch("task")
+    })
+
+    it("should message", async () => {
+      util.message("message")
+      expect(getLog(0)).toMatch("message")
+    })
+
+    it("should pass", async () => {
+      util.pass("pass")
+      expect(getLog(0)).toMatch("pass")
+    })
+
+    it("should skip", async () => {
+      util.skip("skip")
+      expect(getLog(0)).toMatch("skip")
+    })
+
+    it("should fail", async () => {
+      expect(() => util.fail("fail")).toThrow(/fail/)
+    })
+
+    it("should alert", async () => {
+      util.alert("Alerting all chickens")
+    })
+  })
+
   describe("write, check and read files", () => {
     it("should writeFile, check fileExists, readFile", async () => {
       const PATH = ".test/write-file/alphabet.txt"
