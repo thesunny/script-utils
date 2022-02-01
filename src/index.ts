@@ -25,6 +25,7 @@ const log = {
   task: Log(chalk.yellow),
   message: Log(chalk.yellow),
   pass: Log(chalk.greenBright),
+  skip: Log(chalk.green),
   fail: Log(chalk.redBright),
 }
 
@@ -37,6 +38,13 @@ export function task(text: string) {
  */
 export function pass(text: string) {
   // log.pass(`  ✓ ${text}\n`)
+  log.pass(`  ✓ ${text}\n`)
+}
+
+/**
+ * Shortcut `skip` method with a dimmer checkmark
+ */
+export function skip(text: string) {
   log.pass(`  ✓ ${text}\n`)
 }
 
@@ -185,12 +193,20 @@ export function removeFileIfExists(path: string) {
  * we don't know that because overwriting it happens without doing so
  * explicitly.
  */
-export function copyFile(src: string, dest: string) {
+export function copyFile(
+  src: string,
+  dest: string,
+  { exists = "fail" }: { exists?: "fail" | "skip" } = { exists: "fail" }
+) {
   task(`Copy file ${stringify(src)}\n  to ${stringify(dest)}`)
   const dir = Path.dirname(dest)
   fs.ensureDirSync(dir)
   if (fs.existsSync(dest)) {
-    fail(`Copy failed because dest path exists`)
+    if (exists === "skip") {
+      skip(`Skipped (ok to skip file exists)`)
+    } else {
+      fail(`Copy failed because dest path exists`)
+    }
   }
   fs.copyFileSync(src, dest)
   pass(`Completed`)
