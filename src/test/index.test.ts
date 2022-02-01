@@ -316,4 +316,11 @@ describe("script-utils", () => {
       expect(getLog()).toContain(`Completed`)
     })
   })
+
+  describe("spawn", () => {
+    it("should spawn a command", async () => {
+      const result = util.spawn("echo", ["hello", "world"])
+      expect(result.stdout).toEqual("hello world\n")
+    })
+  })
 })
