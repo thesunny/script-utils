@@ -2,6 +2,10 @@ import chalk from "chalk"
 import fs from "fs-extra"
 import Path from "path"
 import { spawnSync } from "child_process"
+import { diffStringsUnified } from "jest-diff"
+import promptSync from "prompt-sync"
+
+export const prompt = promptSync({ sigint: true })
 
 function escapeRegExp(text: string) {
   return text.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&")
@@ -192,6 +196,16 @@ export function removeFileIfExists(path: string) {
   pass(`Removed`)
 }
 
+type ExistsOptions = "fail" | "skip" | "overwrite" | "ask"
+
+export function diffFile(a: string, b: string): string | null {
+  const aText = readFile(a)
+  const bText = readFile(b)
+  if (aText === bText) return null
+  const diff = diffStringsUnified(aText, bText)
+  return diff
+}
+
 /**
  * Copy file from src to dest creating the dest dir if required.
  *
@@ -205,20 +219,48 @@ export function removeFileIfExists(path: string) {
 export function copyFile(
   src: string,
   dest: string,
-  { exists = "fail" }: { exists?: "fail" | "skip" } = { exists: "fail" }
+  { exists = "fail" }: { exists?: ExistsOptions } = { exists: "fail" }
 ) {
   task(`Copy file ${stringify(src)}\n  to ${stringify(dest)}`)
   const dir = Path.dirname(dest)
   fs.ensureDirSync(dir)
   if (fs.existsSync(dest)) {
-    if (exists === "skip") {
-      skip(`Skipped (ok to skip file exists)`)
-    } else {
-      fail(`Copy failed because dest path exists`)
+    switch (exists) {
+      case "skip":
+        skip(`File exists. Skipped it (ok to skip this file)`)
+        break
+      case "fail":
+        fail(`Copy failed because dest path exists`)
+        break
+      case "overwrite":
+        fs.copyFileSync(src, dest)
+        pass(`File exists. Overwriting it`)
+        break
+      case "ask":
+        const diff = diffFile(src, dest)
+        if (diff === null) {
+          fs.copyFileSync(src, dest)
+          skip(`File exists but they match so leave it alone`)
+        } else {
+          console.log("\nDestination exists. Showing diff.\n")
+          console.log(diff)
+          console.log("")
+          const answer = prompt("Overwrite the existing file? [y/n] ")
+          if (answer === "y") {
+            fs.copyFileSync(src, dest)
+            pass(`Overwriting`)
+          } else if (answer === "n") {
+            pass(`Skipping`)
+          } else {
+            fail("Did not answer y or n")
+          }
+        }
+        break
     }
+  } else {
+    fs.copyFileSync(src, dest)
+    pass(`Completed`)
   }
-  fs.copyFileSync(src, dest)
-  pass(`Completed`)
 }
 
 /**

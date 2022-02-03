@@ -7,6 +7,9 @@ node_modules/
 # Ignore temporary directory for creating and destroying files in tests
 .test/
 
+# Ignore examples directory
+.examples/
+
 # Ignore log files
 logs
 *.log

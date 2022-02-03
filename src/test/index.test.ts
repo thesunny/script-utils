@@ -1,5 +1,19 @@
 import * as util from ".."
 import fs from "fs-extra"
+import { prompt } from ".."
+
+// let prompt: typeof jest.fn
+
+jest.mock(
+  "prompt-sync",
+  () => {
+    // const mPrompt = jest.fn()
+    const prompt = jest.fn()
+
+    return jest.fn(() => prompt)
+  },
+  { virtual: true }
+)
 
 /**
  * DEVELOPER HINTS:
@@ -11,8 +25,8 @@ import fs from "fs-extra"
  *   works if you are running one test because we still empty each directory
  *   after starting each test.
  */
-const SHOW_CONSOLE = true // default `false`
-const EMPTY_DIR_AFTER_ALL = false
+const SHOW_CONSOLE = false // default `false`
+const EMPTY_DIR_AFTER_ALL = true // default `true`
 
 describe("script-utils", () => {
   /**
@@ -248,26 +262,103 @@ describe("script-utils", () => {
     })
   })
 
-  describe("copyFile and succeed", () => {
-    it("should copyFile", async () => {
-      const SRC_PATH = ".test/copyFile/a/1.txt"
-      const DEST_PATH = ".test/copyFile/b/1.txt"
-      util.writeFile(SRC_PATH, "lorem", { silent: true })
-      expect(util.fileExists(SRC_PATH)).toEqual(true)
-      util.copyFile(SRC_PATH, DEST_PATH)
-      expect(util.fileExists(DEST_PATH)).toEqual(true)
-      expect(getLog()).toContain(`Copy file`)
-      expect(getLog()).toContain(`Completed`)
+  describe("copyFile", () => {
+    describe("overwrite=fail (default)", () => {
+      it("should copyFile", async () => {
+        const SRC_PATH = ".test/copyFile/a/1.txt"
+        const DEST_PATH = ".test/copyFile/b/1.txt"
+        util.writeFile(SRC_PATH, "lorem", { silent: true })
+        expect(util.fileExists(SRC_PATH)).toEqual(true)
+        util.copyFile(SRC_PATH, DEST_PATH)
+        expect(util.fileExists(DEST_PATH)).toEqual(true)
+        expect(getLog()).toContain(`Copy file`)
+        expect(getLog()).toContain(`Completed`)
+      })
+
+      it("should fail copyFile if dest exists and exists=fail", async () => {
+        const SRC_PATH = ".test/copy-file-exists/a/1.txt"
+        const DEST_PATH = ".test/copy-file-exists/b/1.txt"
+        util.writeFile(SRC_PATH, "src", { silent: true })
+        util.writeFile(DEST_PATH, "dest", { silent: true })
+        expect(() => util.copyFile(SRC_PATH, DEST_PATH)).toThrow("Copy failed")
+        expect(getLog()).toContain(`Copy file `)
+        expect(getLog()).toContain(`Copy failed`)
+        expect(util.readFile(DEST_PATH)).toEqual("dest")
+      })
     })
 
-    it("should fail copyFile if dest exists", async () => {
-      const SRC_PATH = ".test/copy-file-exists/a/1.txt"
-      const DEST_PATH = ".test/copy-file-exists/b/1.txt"
-      util.writeFile(SRC_PATH, "src", { silent: true })
-      util.writeFile(DEST_PATH, "dest", { silent: true })
-      expect(() => util.copyFile(SRC_PATH, DEST_PATH)).toThrow("Copy failed")
-      expect(getLog()).toContain(`Copy file `)
-      expect(getLog()).toContain(`Copy failed`)
+    describe("exists=overwrite", () => {
+      it("should overwrite copyFile if dest exists and exists=overwrite", async () => {
+        const SRC_PATH = ".test/copy-file-exists/a/1.txt"
+        const DEST_PATH = ".test/copy-file-exists/b/1.txt"
+        util.writeFile(SRC_PATH, "src", { silent: true })
+        util.writeFile(DEST_PATH, "dest", { silent: true })
+        util.copyFile(SRC_PATH, DEST_PATH, { exists: "overwrite" })
+        expect(getLog()).toContain(`Copy file `)
+        expect(getLog()).toContain(`Overwriting`)
+        expect(util.readFile(DEST_PATH)).toEqual("src")
+      })
+    })
+
+    describe("exists=skip", () => {
+      it("should skip copyFile if dest exists and exists=skip", async () => {
+        const SRC_PATH = ".test/copy-file-exists/a/1.txt"
+        const DEST_PATH = ".test/copy-file-exists/b/1.txt"
+        util.writeFile(SRC_PATH, "src", { silent: true })
+        util.writeFile(DEST_PATH, "dest", { silent: true })
+        util.copyFile(SRC_PATH, DEST_PATH, { exists: "skip" })
+        expect(getLog()).toContain(`Copy file `)
+        expect(getLog()).toContain(`Skipped it`)
+        expect(util.readFile(DEST_PATH)).toEqual("dest")
+      })
+    })
+
+    describe("exists=ask", () => {
+      afterEach(() => {
+        jest.clearAllMocks()
+        jest.restoreAllMocks()
+      })
+      afterAll(() => {
+        jest.resetAllMocks()
+      })
+
+      it("should ask if dest exists and exists=ask y overwrite", async () => {
+        const SRC_PATH = ".test/copy-file-exists/a/1.txt"
+        const DEST_PATH = ".test/copy-file-exists/b/1.txt"
+        util.writeFile(SRC_PATH, "src", { silent: true })
+        util.writeFile(DEST_PATH, "dest", { silent: true })
+        // @ts-ignore because the type doesn't contain the mock methods
+        prompt.mockReturnValueOnce("y")
+        util.copyFile(SRC_PATH, DEST_PATH, { exists: "ask" })
+        expect(getLog()).toContain(`Copy file `)
+        expect(getLog()).toContain(`Showing diff`)
+        expect(util.readFile(DEST_PATH)).toEqual("src")
+      })
+
+      it("should ask if dest exists and exists=ask n skip", async () => {
+        const SRC_PATH = ".test/copy-file-exists/a/1.txt"
+        const DEST_PATH = ".test/copy-file-exists/b/1.txt"
+        util.writeFile(SRC_PATH, "src", { silent: true })
+        util.writeFile(DEST_PATH, "dest", { silent: true })
+        // @ts-ignore because the type doesn't contain the mock methods
+        prompt.mockReturnValueOnce("n")
+        util.copyFile(SRC_PATH, DEST_PATH, { exists: "ask" })
+        expect(getLog()).toContain(`Copy file `)
+        expect(getLog()).toContain(`Showing diff`)
+        expect(util.readFile(DEST_PATH)).toEqual("dest")
+      })
+
+      it("should ask if dest exists and exists=ask n skip", async () => {
+        const SRC_PATH = ".test/copy-file-exists/a/1.txt"
+        const DEST_PATH = ".test/copy-file-exists/b/1.txt"
+        util.writeFile(SRC_PATH, "src", { silent: true })
+        util.writeFile(DEST_PATH, "dest", { silent: true })
+        // @ts-ignore because the type doesn't contain the mock methods
+        prompt.mockReturnValueOnce("q")
+        expect(() =>
+          util.copyFile(SRC_PATH, DEST_PATH, { exists: "ask" })
+        ).toThrow("Did not answer y or n")
+      })
     })
   })
 
