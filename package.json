@@ -30,7 +30,7 @@
   },
   "scripts": {
     "build": "rm -rf ./.dist/ && tsc -p tsconfig.ts-build.json && echo 'Finished Building'",
-    "publish:npm": "yarn test:once && yarn build && yarn version --patch && npm publis",
+    "prepublish": "yarn test:once && yarn build && yarn version --patch && echo '\"npm publish --access=public\" to publish to npm'",
     "--- test": "#",
     "test:once": "jest --config=jest.config.js",
     "test:watch": "jest --watch --config=jest.fast.config.js",
