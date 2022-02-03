@@ -1,6 +1,6 @@
 {
   "name": "@thesunny/script-utils",
-  "version": "0.1.23",
+  "version": "0.1.24",
   "author": "Sunny Hirai <thesunny@gmail.com>",
   "license": "MIT",
   "main": ".dist/src/index.js",
@@ -30,7 +30,7 @@
   },
   "scripts": {
     "build": "rm -rf ./.dist/ && tsc -p tsconfig.ts-build.json && echo 'Finished Building'",
-    "prepublish": "yarn build && yarn version --patch && echo '\"npm publish --access=public\" to publish to npm'",
+    "prepublish": "yarn test:once && yarn build && yarn version --patch && echo '\"npm publish --access=public\" to publish to npm'",
     "--- test": "#",
     "test:once": "jest --config=jest.config.js",
     "test:watch": "jest --watch --config=jest.fast.config.js",
