@@ -2,14 +2,15 @@ import * as util from ".."
 import fs from "fs-extra"
 import { prompt } from ".."
 
-// let prompt: typeof jest.fn
-
+/**
+ * Mock `prompt-sync`
+ *
+ * https://stackoverflow.com/questions/61950048/how-to-test-a-linear-node-script-with-jest
+ */
 jest.mock(
   "prompt-sync",
   () => {
-    // const mPrompt = jest.fn()
     const prompt = jest.fn()
-
     return jest.fn(() => prompt)
   },
   { virtual: true }
