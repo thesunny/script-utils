@@ -1,6 +1,6 @@
 {
   "name": "@thesunny/script-utils",
-  "version": "0.1.28",
+  "version": "0.1.29",
   "author": "Sunny Hirai <thesunny@gmail.com>",
   "license": "MIT",
   "main": ".dist/src/index.js",
