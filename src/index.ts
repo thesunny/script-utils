@@ -65,7 +65,7 @@ export function alert(text: string) {
  * Shortcut `fail` method that logs with an "x" and then throws the value to
  * stop script from continuing.
  */
-export function fail(value: string | unknown) {
+export function fail(value: string | unknown): never {
   log.fail(`  ✕ ${value}\n`)
   if (typeof value === "string") {
     throw new Error(value)
@@ -196,7 +196,7 @@ export function removeFileIfExists(path: string) {
   pass(`Removed`)
 }
 
-type ExistsOptions = "fail" | "skip" | "overwrite" | "ask"
+export type ExistsOptions = "fail" | "skip" | "overwrite" | "ask"
 
 export function diffFile(a: string, b: string): string | null {
   const aText = readFile(a)
