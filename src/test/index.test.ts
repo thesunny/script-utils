@@ -455,6 +455,15 @@ describe("script-utils", () => {
     it("should get branch", async () => {
       const branch = util.getGitBranch()
       expect(typeof branch).toEqual("string")
+    })
+
+    it("should know if git is clean", async () => {
+      expect(typeof util.isGitClean()).toEqual("boolean")
+    })
+  })
+
+  describe.skip("git on this git repo", () => {
+    it("should run ", async () => {
       assertGitBranch("main")
       assertGitClean()
     })
