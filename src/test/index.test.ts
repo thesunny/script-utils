@@ -1,6 +1,6 @@
 import * as util from ".."
 import fs from "fs-extra"
-import { prompt } from ".."
+import { assertGitBranch, assertGitClean, prompt } from ".."
 
 /**
  * Mock `prompt-sync`
@@ -26,7 +26,7 @@ jest.mock(
  *   works if you are running one test because we still empty each directory
  *   after starting each test.
  */
-const SHOW_CONSOLE = false // default `false`
+const SHOW_CONSOLE = true // default `false`
 const EMPTY_DIR_AFTER_ALL = true // default `true`
 
 describe("script-utils", () => {
@@ -439,10 +439,24 @@ describe("script-utils", () => {
     })
   })
 
-  describe("spawn", () => {
+  describe("process", () => {
     it("should spawn a command", async () => {
       const result = util.spawn("echo", ["hello", "world"])
       expect(result.stdout).toEqual("hello world\n")
+    })
+
+    it("should exec a command", async () => {
+      const result = util.exec("echo hello world")
+      expect(result).toEqual("hello world")
+    })
+  })
+
+  describe.only("git", () => {
+    it("should get branch", async () => {
+      const branch = util.getGitBranch()
+      expect(typeof branch).toEqual("string")
+      assertGitBranch("main")
+      assertGitClean()
     })
   })
 })

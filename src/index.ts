@@ -1,9 +1,10 @@
 import chalk from "chalk"
 import fs from "fs-extra"
 import Path from "path"
-import { spawnSync } from "child_process"
 import { diffStringsUnified } from "jest-diff"
 import promptSync from "prompt-sync"
+export { exec, spawn } from "./process"
+export * from "./git"
 
 export const prompt = promptSync({ sigint: true })
 
@@ -405,25 +406,6 @@ export function processFile(
 
   writeFile(dest, processedText, { silent: true })
   pass(`Completed`)
-}
-
-/**
- * Spawn a command to execute.
- */
-export function spawn(
-  cmd: string,
-  args: string[],
-  { value = "" }: { value?: string } = { value: "" }
-): { stdout: string; stderr: string } {
-  const result = spawnSync(cmd, args, {
-    input: value,
-    encoding: "utf8",
-    stdio: ["pipe", "pipe", "pipe"],
-  })
-  if (result.status !== 0) {
-    throw new Error(result.stderr)
-  }
-  return result
 }
 
 /**
