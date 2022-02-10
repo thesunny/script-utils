@@ -55,10 +55,10 @@ export function alert(text: string) {
  */
 export function fail(
   value: string | unknown,
-  { error = true }: { error?: boolean } = { error: true }
+  { throwError = true }: { throwError?: boolean } = { throwError: true }
 ): never {
   log.fail(`  ✕ ${value}\n`)
-  if (error) {
+  if (throwError) {
     if (typeof value === "string") {
       throw new Error(value)
     } else {

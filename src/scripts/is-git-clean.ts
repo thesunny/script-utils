@@ -6,5 +6,5 @@ task("Check if git is clean")
 if (isGitClean()) {
   pass("Done")
 } else {
-  fail("Git repo is dirty", { error: false })
+  fail("Git repo is dirty", { throwError: false })
 }
