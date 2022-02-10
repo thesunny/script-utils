@@ -8,6 +8,10 @@
   "files": [
     ".dist/**/*"
   ],
+  "bin": {
+    "is-git-clean": ".dist/scripts/is-git-clean.js",
+    "is-git-branch": ".dist/scripts/is-git-branch.js"
+  },
   "dependencies": {
     "chalk": "^4",
     "fs-extra": "^10.0.0",
@@ -37,6 +41,7 @@
     "test:watch:types": "jest --watch --config=jest.config.js",
     "test:clearcache": "jest --clearCache",
     "--- examples": "#",
-    "example:copy": "ts-node --project tsconfig.ts-node.json examples/copy-file.ts"
+    "example:copy": "ts-node --project tsconfig.ts-node.json examples/copy-file.ts",
+    "example:scripts": "is-git-clean"
   }
 }

@@ -1,6 +1,6 @@
 import * as util from ".."
 import fs from "fs-extra"
-import { assertGitBranch, assertGitClean, prompt } from ".."
+import { assertBranch, assertGitClean, prompt } from ".."
 
 /**
  * Mock `prompt-sync`
@@ -462,10 +462,20 @@ describe("script-utils", () => {
     })
   })
 
-  describe.skip("git on this git repo", () => {
-    it("should run ", async () => {
-      assertGitBranch("main")
-      assertGitClean()
+  /**
+   * NOTE:
+   *
+   * These tests are a little wonky because they are running on
+   */
+  describe.only("git on this git repo", () => {
+    it("should either complete successfully or throw that it's on the wrong branch", async () => {
+      try {
+        assertBranch("main")
+        expect(getLog()).toMatch(/make sure we are on git branch/i)
+        expect(getLog()).toMatch(/done/i)
+      } catch (e) {
+        expect(`${e}`).toMatch(/on wrong branch/i)
+      }
     })
   })
 })
