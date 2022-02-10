@@ -1,5 +1,4 @@
 import chalk from "chalk"
-
 /**
  * For internal use. Create a Log method that uses a chalk function for styling.
  */
@@ -48,6 +47,11 @@ export function message(text: string) {
 
 export function alert(text: string) {
   log.alert(`🔥 ${text.split("\n").join("\n  ")}\n`)
+}
+
+export function failWithExit(value: string): never {
+  log.fail(`  ✕ ${value}\n`)
+  process.exit(1)
 }
 
 /**
