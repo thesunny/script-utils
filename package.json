@@ -1,6 +1,6 @@
 {
   "name": "@thesunny/script-utils",
-  "version": "0.1.30",
+  "version": "0.1.31",
   "author": "Sunny Hirai <thesunny@gmail.com>",
   "license": "MIT",
   "main": ".dist/src/index.js",
@@ -9,8 +9,8 @@
     ".dist/**/*"
   ],
   "bin": {
-    "is-git-clean": ".dist/scripts/is-git-clean.js",
-    "is-git-branch": ".dist/scripts/is-git-branch.js"
+    "is-git-clean": ".dist/src/scripts/is-git-clean.js",
+    "is-git-branch": ".dist/src/scripts/is-git-branch.js"
   },
   "dependencies": {
     "chalk": "^4",
