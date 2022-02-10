@@ -1,9 +1,10 @@
 #!/usr/bin/env node
-import * as utils from ".."
+import { task, pass, fail } from "../log"
+import { isGitClean } from "../git"
 
-utils.task("Check if git is clean")
-if (utils.isGitClean()) {
-  utils.pass("Done")
+task("Check if git is clean")
+if (isGitClean()) {
+  pass("Done")
 } else {
-  utils.fail("Git repo is dirty")
+  fail("Git repo is dirty")
 }

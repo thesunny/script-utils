@@ -451,7 +451,7 @@ describe("script-utils", () => {
     })
   })
 
-  describe.only("git", () => {
+  describe("git", () => {
     it("should get branch", async () => {
       const branch = util.getGitBranch()
       expect(typeof branch).toEqual("string")
@@ -467,7 +467,7 @@ describe("script-utils", () => {
    *
    * These tests are a little wonky because they are running on
    */
-  describe.only("git on this git repo", () => {
+  describe("git on this git repo", () => {
     it("should either complete successfully or throw that it's on the wrong branch", async () => {
       try {
         assertBranch("main")
