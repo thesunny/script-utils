@@ -49,21 +49,23 @@ export function alert(text: string) {
   log.alert(`🔥 ${text.split("\n").join("\n  ")}\n`)
 }
 
-export function failWithExit(value: string): never {
-  log.fail(`  ✕ ${value}\n`)
-  process.exit(1)
-}
-
 /**
  * Shortcut `fail` method that logs with an "x" and then throws the value to
  * stop script from continuing.
  */
-export function fail(value: string | unknown): never {
+export function fail(
+  value: string | unknown,
+  { error = true }: { error?: boolean } = { error: true }
+): never {
   log.fail(`  ✕ ${value}\n`)
-  if (typeof value === "string") {
-    throw new Error(value)
+  if (error) {
+    if (typeof value === "string") {
+      throw new Error(value)
+    } else {
+      throw value
+    }
   } else {
-    throw value
+    process.exit(1)
   }
 }
 
