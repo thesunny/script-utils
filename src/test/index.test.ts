@@ -481,7 +481,7 @@ describe("script-utils", () => {
     })
   })
 
-  describe.only("git tags", () => {
+  describe("git tags", () => {
     it("should get, add and remove git tags", async () => {
       const tempTag = "temp-git-tag-for-testing"
       util.removeGitTag(tempTag, { silentNotFound: true })
