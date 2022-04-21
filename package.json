@@ -44,6 +44,7 @@
     "test:clearcache": "jest --clearCache",
     "--- examples": "#",
     "example:copy": "ts-node --project tsconfig.ts-node.json examples/copy-file.ts",
-    "example:scripts": "is-git-clean"
+    "example:is-git-clean": "node ./.dist/src/scripts/is-git-clean.js",
+    "example:git-stamp": "node git-stamp temp"
   }
 }
