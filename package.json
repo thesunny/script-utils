@@ -45,6 +45,6 @@
     "--- examples": "#",
     "example:copy": "ts-node --project tsconfig.ts-node.json examples/copy-file.ts",
     "example:is-git-clean": "node ./.dist/src/scripts/is-git-clean.js",
-    "example:git-stamp": "node git-stamp temp"
+    "example:git-stamp": "node ./.dist/src/scripts/git-stamp.js temp"
   }
 }
