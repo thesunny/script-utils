@@ -32,9 +32,21 @@ var escapeShell = function (s: string) {
  * Uses a simpler calling method than `spawn`.
  *
  * trim the result for consistency.
+ *
+ * `silent` option makes it so that the command does not output to the console.
  */
-export function exec(cmd: string) {
-  return execSync(cmd, {
+export function exec(
+  cmd: string,
+  { silent = false }: { silent?: boolean } = { silent: false }
+) {
+  /**
+   * NOTE: Add 'utf8' to encoding so that `execSync` return type is a string
+   */
+  const options: Parameters<typeof execSync>[1] & { encoding: "utf8" } = {
     encoding: "utf8",
-  }).trim()
+  }
+  if (silent) {
+    options.stdio = "pipe"
+  }
+  return execSync(cmd, options).trim()
 }

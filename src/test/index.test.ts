@@ -1,6 +1,7 @@
 import * as util from ".."
 import fs from "fs-extra"
-import { assertBranch, assertGitClean, prompt } from ".."
+import { assertGitBranch, assertGitClean, prompt, removeGitTag } from ".."
+import { assert } from "console"
 
 /**
  * Mock `prompt-sync`
@@ -465,17 +466,48 @@ describe("script-utils", () => {
   /**
    * NOTE:
    *
-   * These tests are a little wonky because they are running on
+   * These tests are a little wonky because they are running on self and
+   * will only pass if we are on the `main` branch.
    */
   describe("git on this git repo", () => {
     it("should either complete successfully or throw that it's on the wrong branch", async () => {
       try {
-        assertBranch("main")
+        assertGitBranch("main")
         expect(getLog()).toMatch(/make sure we are on git branch/i)
         expect(getLog()).toMatch(/done/i)
       } catch (e) {
         expect(`${e}`).toMatch(/on wrong branch/i)
       }
+    })
+  })
+
+  describe.only("git tags", () => {
+    it("should get, add and remove git tags", async () => {
+      const tempTag = "temp-git-tag-for-testing"
+      util.removeGitTag(tempTag, { silentNotFound: true })
+      util.addGitTag(tempTag, "Temporary git tag for testing")
+      const tags = util.getGitHeadTags()
+      expect(tags).toContain(tempTag)
+
+      util.removeGitTag(tempTag)
+      const tags2 = util.getGitHeadTags()
+      expect(tags2).not.toContain(tempTag)
+
+      // expect(() => util.removeGitTag(tempTag)).toThrow("not found")
+    })
+
+    it("should get a timestamp", async () => {
+      const stamp = util.getTimestamp("dev")
+      expect(stamp).toMatch(/^dev[.].*[.].*[.].*$/)
+    })
+
+    it("should git stamp", async () => {
+      const tag = util.gitStamp("temp")
+      const tags = util.getGitHeadTags()
+      expect(tags).toContain(tag)
+      util.removeGitTag(tag)
+      const tags2 = util.getGitHeadTags()
+      expect(tags2).not.toContain(tag)
     })
   })
 })
