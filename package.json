@@ -10,7 +10,8 @@
   ],
   "bin": {
     "is-git-clean": ".dist/src/scripts/is-git-clean.js",
-    "is-git-branch": ".dist/src/scripts/is-git-branch.js"
+    "is-git-branch": ".dist/src/scripts/is-git-branch.js",
+    "git-stamp": ".dist/src/scripts/git-stamp.js"
   },
   "dependencies": {
     "chalk": "^4",
