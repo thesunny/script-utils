@@ -26,7 +26,7 @@ jest.mock(
  *   works if you are running one test because we still empty each directory
  *   after starting each test.
  */
-const SHOW_CONSOLE = true // default `false`
+const SHOW_CONSOLE = false // default `false`
 const EMPTY_DIR_AFTER_ALL = true // default `true`
 
 describe("script-utils", () => {
