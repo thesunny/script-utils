@@ -88,6 +88,29 @@ export function emptyDir(dir: string) {
 }
 
 /**
+ * Check path is empty (no file exists, no dir exists or dir exists but is empty)
+ */
+export function isEmpty(path: string) {
+  if (!fileExists(path)) {
+    return true
+  }
+  return fs.readdirSync(path).length === 0
+}
+
+/**
+ * Ensure path is empty (no file exists, no dir exists or dir exists but is empty)
+ */
+export function ensureEmpty(path: string) {
+  task(`Ensure path is empty`)
+  const empty = isEmpty(path)
+  if (empty) {
+    pass(`Confirmed`)
+  } else {
+    fail(`Path is not empty`)
+  }
+}
+
+/**
  * Remove file if it exists.
  */
 export function removeFileIfExists(path: string) {

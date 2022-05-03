@@ -1,7 +1,6 @@
 import * as util from ".."
 import fs from "fs-extra"
 import { assertGitBranch, assertGitClean, prompt, removeGitTag } from ".."
-import { assert } from "console"
 
 /**
  * Mock `prompt-sync`
@@ -229,6 +228,26 @@ describe("script-utils", () => {
       util.emptyDir(DIR)
       expect(util.fileExists(PATH_1)).toEqual(false)
       expect(util.fileExists(PATH_2)).toEqual(false)
+    })
+  })
+
+  describe("isEmpty", () => {
+    it("should return true if path doesn't exist", async () => {
+      const empty = util.isEmpty("does-not-exist")
+      expect(empty).toEqual(true)
+    })
+
+    it("should return true if dir exists but is empty", async () => {
+      fs.mkdirSync(".test/empty")
+      const exists = util.fileExists(".test/empty")
+      expect(exists).toEqual(true)
+      expect(util.isEmpty(".test/empty")).toEqual(true)
+    })
+
+    it("should return false if dir exists has content", async () => {
+      fs.mkdirSync(".test/not-empty")
+      util.writeFile(".test/not-empty/a.txt", "a")
+      expect(util.isEmpty(".test/not-empty")).toEqual(false)
     })
   })
 
