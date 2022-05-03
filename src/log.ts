@@ -1,10 +1,12 @@
 import chalk from "chalk"
+import { logger } from "./logger"
+
 /**
  * For internal use. Create a Log method that uses a chalk function for styling.
  */
 function Log(ch: chalk.Chalk) {
   return function (text: string) {
-    console.log(ch(text))
+    logger.log(ch(text))
   }
 }
 

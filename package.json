@@ -17,7 +17,8 @@
     "chalk": "^4",
     "fs-extra": "^10.0.0",
     "jest-diff": "^27.5.1",
-    "prompt-sync": "^4.2.0"
+    "prompt-sync": "^4.2.0",
+    "unit-logger": "^1.0.2"
   },
   "dependenciesComments": {
     "chalk": "Must be version 4. 5 will break in ts-jest because it is esm only. Fix supposed to be in typescript 4.6."

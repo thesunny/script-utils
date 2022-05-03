@@ -6,6 +6,8 @@ import { task, pass, fail, skip, stringify } from "./log"
 export { exec, spawn } from "./process"
 export * from "./git"
 export * from "./log"
+export * from "./logger"
+import { logger } from "./logger"
 
 export const prompt = promptSync({ sigint: true })
 
@@ -173,9 +175,8 @@ export function copyFile(
           fs.copyFileSync(src, dest)
           skip(`File exists but they match so leave it alone`)
         } else {
-          console.log("\nDestination exists. Showing diff.\n")
-          console.log(diff)
-          console.log("")
+          logger.log("\nDestination exists. Showing diff.\n")
+          logger.log(`${diff}\n`)
           const answer = prompt("Overwrite the existing file? [y/n] ")
           if (answer === "y") {
             fs.copyFileSync(src, dest)
