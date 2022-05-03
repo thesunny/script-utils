@@ -101,7 +101,7 @@ export function isEmpty(path: string) {
  * Ensure path is empty (no file exists, no dir exists or dir exists but is empty)
  */
 export function ensureEmpty(path: string) {
-  task(`Ensure path is empty`)
+  task(`Ensure path ${stringify(path)} is empty`)
   const empty = isEmpty(path)
   if (empty) {
     pass(`Confirmed`)
