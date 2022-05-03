@@ -85,6 +85,14 @@ export function ensureFileExists(path: string) {
  */
 export function emptyDir(dir: string) {
   task(`Empty dir ${stringify(dir)}`)
+  if (
+    dir.startsWith("~") ||
+    dir.startsWith("/") ||
+    dir === "" ||
+    dir === "./"
+  ) {
+    fail(`You cannot empty the dir ${stringify(dir)}`)
+  }
   fs.emptyDirSync(dir)
   pass(`Completed`)
 }

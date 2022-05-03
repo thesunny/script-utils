@@ -2,7 +2,6 @@ import * as util from ".."
 import fs from "fs-extra"
 import { assertGitBranch, assertGitClean, prompt, removeGitTag } from ".."
 import { logger } from "../logger"
-import { lchown } from "fs"
 
 /**
  * Mock `prompt-sync`
