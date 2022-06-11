@@ -8,6 +8,7 @@ export * from "./git"
 export * from "./log"
 export * from "./logger"
 import { logger } from "./logger"
+export { logger } from "./logger"
 
 export const prompt = promptSync({ sigint: true })
 
