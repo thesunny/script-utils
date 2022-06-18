@@ -157,13 +157,25 @@ export function diffFile(a: string, b: string): string | null {
  * it's easy to end up in a situation where the `copyFile` never executed but
  * we don't know that because overwriting it happens without doing so
  * explicitly.
+ *
+ * Can be called with a `silent` option which will supress logging of only the
+ * `task` and `pass`. We may later want to suppress others like `overwrite`
+ * but we'll leave it for now.
  */
 export function copyFile(
   src: string,
   dest: string,
-  { exists = "fail" }: { exists?: ExistsOptions } = { exists: "fail" }
+  {
+    exists = "fail",
+    silent = false,
+  }: { exists?: ExistsOptions; silent: boolean } = {
+    exists: "fail",
+    silent: false,
+  }
 ) {
-  task(`Copy file ${stringify(src)}\n  to ${stringify(dest)}`)
+  if (!silent) {
+    task(`Copy file ${stringify(src)}\n  to ${stringify(dest)}`)
+  }
   const dir = Path.dirname(dest)
   fs.ensureDirSync(dir)
   if (fs.existsSync(dest)) {
@@ -200,7 +212,9 @@ export function copyFile(
     }
   } else {
     fs.copyFileSync(src, dest)
-    pass(`Completed`)
+    if (!silent) {
+      pass(`Completed`)
+    }
   }
 }
 
