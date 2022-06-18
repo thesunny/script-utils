@@ -168,7 +168,7 @@ export function copyFile(
   {
     exists = "fail",
     silent = false,
-  }: { exists?: ExistsOptions; silent: boolean } = {
+  }: { exists?: ExistsOptions; silent?: boolean } = {
     exists: "fail",
     silent: false,
   }
