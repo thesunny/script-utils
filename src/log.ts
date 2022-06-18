@@ -16,7 +16,7 @@ function Log(ch: chalk.Chalk) {
 const log = {
   title: Log(chalk.yellowBright),
   heading: Log(chalk.yellowBright),
-  progress: Log(chalk.greenBright),
+  progress: Log(chalk.green),
   task: Log(chalk.yellow),
   message: Log(chalk.hex("#c0c0a0")),
   alert: Log(chalk.hex("FF9010")),
