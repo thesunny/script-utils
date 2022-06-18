@@ -16,12 +16,17 @@ function Log(ch: chalk.Chalk) {
 const log = {
   title: Log(chalk.yellowBright),
   heading: Log(chalk.yellowBright),
+  line: Log(chalk.greenBright),
   task: Log(chalk.yellow),
   message: Log(chalk.hex("#c0c0a0")),
   alert: Log(chalk.hex("FF9010")),
   pass: Log(chalk.greenBright),
   skip: Log(chalk.hex("#006000")),
   fail: Log(chalk.redBright),
+}
+
+export function line(text: string) {
+  log.line(text)
 }
 
 export function task(text: string) {
