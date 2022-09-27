@@ -45,7 +45,6 @@
   "scripts": {
     "--- npm": "# build npm",
     "build:npm": "rm -rf ./.dist/ && tsc -p tsconfig.tsc.json",
-    "# prepublishold": "# yarn test:once && yarn buildforpublish && yarn version --patch && echo '\"npm publish --access=public\" to publish to npm'",
     "publish:npm": "yarn lint && yarn test:once && yarn build:npm && yarn publish || echo '\"npm publish --access=public' to publish to npm",
     "--- test": "#",
     "test:once": "yarn test:clearcache && jest --config=jest.config.js",
