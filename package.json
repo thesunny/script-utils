@@ -1,17 +1,39 @@
 {
   "name": "@thesunny/script-utils",
   "version": "0.1.50",
-  "author": "Sunny Hirai <thesunny@gmail.com>",
   "license": "MIT",
-  "main": ".dist/src/index.js",
-  "types": ".dist/src/index.d.ts",
+  "author": "Sunny Hirai <thesunny@gmail.com>",
   "files": [
     ".dist/**/*"
   ],
+  "main": ".dist/src/index.js",
+  "types": ".dist/src/index.d.ts",
   "bin": {
     "is-git-clean": ".dist/src/scripts/is-git-clean.js",
     "is-git-branch": ".dist/src/scripts/is-git-branch.js",
     "git-stamp": ".dist/src/scripts/git-stamp.js"
+  },
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.13",
+    "@types/jest": "^27",
+    "@types/node": "^18.7.23",
+    "@types/prompt-sync": "^4.1.1",
+    "@typescript-eslint/eslint-plugin": "^5.15.0",
+    "@typescript-eslint/parser": "^5.15.0",
+    "concurrently": "^7.2",
+    "eslint": "^8.4.1",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-plugin-no-secrets": "^0.8.9",
+    "eslint-plugin-react": "^7.27.1",
+    "eslint-plugin-simple-import-sort": "^7.0",
+    "jest": "^27",
+    "prettier": "^2",
+    "ts-jest": "^27",
+    "ts-node": "^10.9.1",
+    "tsc": "^2.0.4",
+    "tsconfig-paths": "^4.1.0",
+    "type-fest": "^2.5.2",
+    "typescript": "^4.8.4"
   },
   "dependencies": {
     "chalk": "^4",
@@ -20,33 +42,33 @@
     "prompt-sync": "^4.2.0",
     "unit-logger": "^1.0.3"
   },
-  "dependenciesComments": {
-    "chalk": "Must be version 4. 5 will break in ts-jest because it is esm only. Fix supposed to be in typescript 4.6."
-  },
-  "devDependencies": {
-    "@types/fs-extra": "^9.0.13",
-    "@types/jest": "^26.0.23",
-    "@types/node": "^17.0.0",
-    "@types/prompt-sync": "^4.1.1",
-    "jest": "^27.0.6",
-    "ts-jest": "^27.1",
-    "ts-node": "^10.4.0",
-    "tsconfig-paths": "^3.12.0",
-    "type-fest": "^2.5.2",
-    "typescript": "^4.5.4"
-  },
   "scripts": {
-    "build:npm": "rm -rf ./.dist/ && tsc -p tsconfig.ts-build.json && echo 'Finished Building'",
-    "prepublishold": "yarn test:once && yarn buildforpublish && yarn version --patch && echo '\"npm publish --access=public\" to publish to npm'",
-    "publish:npm": "yarn test:once && yarn run build:npm && yarn publish || echo '\"npm publish --access=public\" to publish to npm'",
+    "--- npm": "# build npm",
+    "build:npm": "rm -rf ./.dist/ && tsc -p tsconfig.tsc.json",
+    "# prepublishold": "# yarn test:once && yarn buildforpublish && yarn version --patch && echo '\"npm publish --access=public\" to publish to npm'",
+    "publish:npm": "yarn lint && yarn test:once && yarn build:npm && yarn publish || echo '\"npm publish --access=public' to publish to npm",
     "--- test": "#",
-    "test:once": "jest --config=jest.config.js",
+    "test:once": "yarn test:clearcache && jest --config=jest.config.js",
     "test:watch": "jest --watch --config=jest.fast.config.js",
-    "test:watch:types": "jest --watch --config=jest.config.js",
+    "test:watch:types": "yarn test:clearcache && jest --watch --config=jest.config.js",
     "test:clearcache": "jest --clearCache",
     "--- examples": "#",
     "example:copy": "ts-node --project tsconfig.ts-node.json examples/copy-file.ts",
     "example:is-git-clean": "node ./.dist/src/scripts/is-git-clean.js",
-    "example:git-stamp": "node ./.dist/src/scripts/git-stamp.js temp"
+    "example:git-stamp": "node ./.dist/src/scripts/git-stamp.js temp",
+    "-- preset": "# Run preset from @thesunny/presets",
+    "preset": "ts-node --project node_modules/@thesunny/presets/tsconfig.ts-node.json node_modules/@thesunny/presets/bin/index.ts",
+    "-- fix": "# fix syntax",
+    "fix:prettier": "yarn lint:prettier --write",
+    "fix:eslint": "yarn lint:eslint --fix",
+    "-- lint": "# lint syntax",
+    "lint": "concurrently 'yarn lint:prettier' 'yarn lint:eslint' 'yarn lint:tsc'",
+    "lint:prettier": "prettier --check \"**/*.{css,md,js,jsx,json,ts,tsx}\"",
+    "lint:eslint": "eslint .",
+    "lint:tsc": "tsc --build ./ --force",
+    "-- end": "# end"
+  },
+  "dependenciesComments": {
+    "chalk": "Must be version 4. 5 will break in ts-jest because it is esm only. Fix supposed to be in typescript 4.6."
   }
 }

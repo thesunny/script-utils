@@ -13,7 +13,7 @@ export { logger } from "./logger"
 export const prompt = promptSync({ sigint: true })
 
 function escapeRegExp(text: string) {
-  return text.replace(/[-\/\\^$*+?.()|[\]{}]/g, "\\$&")
+  return text.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&")
 }
 
 /**
@@ -190,7 +190,7 @@ export function copyFile(
         fs.copyFileSync(src, dest)
         pass(`File exists. Overwriting it`)
         break
-      case "ask":
+      case "ask": {
         const diff = diffFile(src, dest)
         if (diff === null) {
           fs.copyFileSync(src, dest)
@@ -209,6 +209,7 @@ export function copyFile(
           }
         }
         break
+      }
     }
   } else {
     fs.copyFileSync(src, dest)

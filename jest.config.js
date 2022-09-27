@@ -1,6 +1,7 @@
 /** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
 
 const fs = require("fs")
+const esmModules = require("./jest.esm-modules").join("|")
 
 /**
  * Make sure the file `tsconfig.ts-jest.json` was copied into the directory.
@@ -17,6 +18,7 @@ if (!fs.existsSync("tsconfig.ts-jest.json")) {
 }
 
 module.exports = {
+  setupFiles: ["./jest.setup.js"],
   globals: {
     "ts-jest": {
       /**
@@ -40,4 +42,29 @@ module.exports = {
    */
   preset: "ts-jest",
   testEnvironment: "node",
+  /**
+   * The `transform` and `transformIgnorePatterns` is necessary to support
+   * `esm` modules.
+   *
+   * https://github.com/kulshekhar/ts-jest/issues/970
+   */
+  transform: {
+    "^.+\\.[tj]sx?$": "ts-jest",
+  },
+  transformIgnorePatterns: [`node_modules/(?!${esmModules})`],
+  /**
+   * Sometimes, our tests use temp files that we keep in a `.temp` directory.
+   * These files are manipulated during the test and we don't want that to
+   * cause the test to be run again.
+   */
+  watchPathIgnorePatterns: ["[.]temp"],
+  /**
+   * This needs to match the `paths` entry in `tsconfig.base.json` or
+   * `tsconfig.custom.json`.
+   *
+   * TODO: Use `jest-module-name-mapper` to create mappings from tsconfig
+   */
+  moduleNameMapper: {
+    "^~/(.*)$": "<rootDir>/$1",
+  },
 }

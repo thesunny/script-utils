@@ -1,14 +1,18 @@
 /**
- * This should always be empty except for extending `tsconfig.base.json`
- *
- * This is in case other programs like Next.js may try to change the main
- * `tsconfig.json` file. We know when that happens and we can point it to a
- * specific `tsconfig.json` that extends `tsconfig.base.json` instead.
- *
- * If we use `tsconfig.json` instead of `tsconfig.base.json`, all the other
- * tsconfig that inherit from `tsconfig.json` could be broken by programs that
- * try to modify `tsconfig.json`.
- */ {
-  "extends": "./tsconfig.base.json",
-  "compilerOptions": {}
+ * Next.js insists on using the main `tsconfig.json` file so this is actually
+ * the config file for Next.js
+ */
+{
+  "extends": "./tsconfig.custom.json",
+  "compilerOptions": {
+    /**
+     * These are settings that Next.js insists exists. If they aren't there,
+     * Next.js will create them
+     */
+    "module": "ESNext",
+    "sourceMap": true,
+    "incremental": true,
+    "jsx": "preserve",
+    "allowJs": true
+  }
 }

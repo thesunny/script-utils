@@ -22,10 +22,6 @@ export function spawn(
   return result
 }
 
-var escapeShell = function (s: string) {
-  return '"' + s.replace(/(["'$`\\])/g, "\\$1") + '"'
-}
-
 /**
  * Executes a command.
  *

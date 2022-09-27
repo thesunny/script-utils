@@ -16,3 +16,21 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+# ignore dotenv environment variables
+.env/
+# ignore build/dist directories
+.npm/
+.build
+# ignore Next.js directory
+.next/
+# ignore vercel link directory
+.vercel/
+# ignore .temp directory used during testing
+.temp/
+# standard ignorable files found when using Yarn
+.DS_Store
+# logging we can ignore
+yarn-error.log
+eslint.log
+# ignore the increment typescript build info
+tsconfig.tsbuildinfo

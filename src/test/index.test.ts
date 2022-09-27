@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable no-secrets/no-secrets */
 import * as util from ".."
 import fs from "fs-extra"
-import { assertGitBranch, assertGitClean, prompt, removeGitTag } from ".."
+import { assertGitBranch, prompt } from ".."
 import { logger } from "../logger"
 
 /**
@@ -24,14 +26,12 @@ function $(s: string | RegExp) {
 /**
  * DEVELOPER HINTS:
  *
- * - Set `SHOW_CONSOLE` to `true` when developing to see the console output
  * - Set `EMPTY_DIR_AFTER_ALL` to `false` if you are diving into a specific
  *   test and see what's in the directory after running that one test. By
  *   setting it to false, we don't clear the last test result. NOTE: This only
  *   works if you are running one test because we still empty each directory
  *   after starting each test.
  */
-const SHOW_CONSOLE = true // default `false`
 const EMPTY_DIR_AFTER_ALL = true // default `true`
 
 describe("script-utils", () => {
@@ -451,7 +451,7 @@ describe("script-utils", () => {
       const REPLACED_TEXT = `lorem IPSUM dolar\nsit amet\nconsecteteur\nlorem IPSUM dolar\nsit amet\nconsecteteur`
       util.writeFile(SRC, TEXT, { silent: true })
       const chunks = logger.collect(() => {
-        const x = util.replaceInFile({
+        util.replaceInFile({
           src: SRC,
           dest: DEST,
           find: /(ipsum)/,
@@ -474,7 +474,7 @@ describe("script-utils", () => {
       const REPLACED_TEXT = `lorem IPSUM dolar\nsit amet\nconsecteteur\nlorem IPSUM dolar\nsit amet\nconsecteteur`
       util.writeFile(SRC, TEXT, { silent: true })
       const chunks = logger.collect(() => {
-        const x = util.replaceInFile({
+        util.replaceInFile({
           src: SRC,
           dest: DEST,
           find: "ipsum",
@@ -497,7 +497,7 @@ describe("script-utils", () => {
       const REPLACED_TEXT = `lorem IPSUM dolar\nsit amet\nconsecteteur\nlorem IPSUM dolar\nsit amet\nconsecteteur`
       util.writeFile(SRC, TEXT, { silent: true })
       const chunks = logger.collect(() => {
-        const x = util.replaceInFile({
+        util.replaceInFile({
           src: SRC,
           dest: DEST,
           find: /(ipsum)/,

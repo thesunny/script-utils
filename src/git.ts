@@ -105,7 +105,8 @@ function revListCount(
  * from the one on the left, return true.
  */
 export function canFastForwardToRight(leftBranch: string, rightBranch: string) {
-  const [leftCount, rightCount] = revListCount(leftBranch, rightBranch)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_leftCount, rightCount] = revListCount(leftBranch, rightBranch)
   return rightCount === 0
 }
 
@@ -115,7 +116,8 @@ export function canFastForwardToRight(leftBranch: string, rightBranch: string) {
  * This means that there aren't any commits in `bBranch`
  */
 export function isGitFastForward(aBranch: string, bBranch: string) {
-  const [leftCount, rightCount] = revListCount(aBranch, bBranch)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_leftCount, rightCount] = revListCount(aBranch, bBranch)
   if (rightCount === 0) {
     return true
   } else {
@@ -126,18 +128,18 @@ export function isGitFastForward(aBranch: string, bBranch: string) {
 export function getTimestamp(s: string) {
   const at = new Date()
 
-  const date = at.toLocaleString("en-US", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  })
-  const time = at.toLocaleTimeString("en-US", {
-    hour12: false,
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    timeZoneName: "short",
-  })
+  // const date = at.toLocaleString("en-US", {
+  //   year: "numeric",
+  //   month: "2-digit",
+  //   day: "2-digit",
+  // })
+  // const time = at.toLocaleTimeString("en-US", {
+  //   hour12: false,
+  //   hour: "2-digit",
+  //   minute: "2-digit",
+  //   second: "2-digit",
+  //   timeZoneName: "short",
+  // })
   const month = `0${at.getMonth()}`.slice(-2)
   const day = `0${at.getDate()}`.slice(-2)
   const hours = `0${at.getHours()}`.slice(-2)
