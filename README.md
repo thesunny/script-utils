@@ -13,6 +13,7 @@ A number of useful methods and command line scripts for use in scripting utiliti
 - [Task Methods](#task-methods)
 - [Process Methods](#process-methods)
 - [Log Methods](#log-methods)
+- [Git Tasks and Methods](#git-tasks-and-methods)
 
 ## Usage
 
@@ -157,3 +158,20 @@ trim the result for consistency.
   - `log.pass(text: string)`
   - `log.skip(text: string)`
   - `log.fail(text: string)`
+
+## Git Tasks and Methods
+
+Haven't documented these fully yet but here's the method names.
+
+- `getGitBranch()`: Get current branch
+- `addGitTag(tag: string, message: string)`: Add git tag
+- `removeGitTag(tag: string)`; Remove git tag
+- `getGitHeadTags()`
+- `isGitClean()`: true if no uncommitted changes
+- `assertGitBranch(expectedBranch: string)`: assert that we are on a given branch
+- `assertGitClean()`: assert that there are no uncommitted changes
+- `revListCount(leftBranch: string, rightBranch: string)`: Looks for commits in one branch but not the other
+- `canFastForwardToRight(leftBranch: string, rightBranch: string)`: Returns true if rightBranch can be fast forwarded from leftBranch
+- `isGitFastForward(aBranch: string, bBranch: string)`: I think this is redundant with `canFastForwardToRight`. Check it and remove one or the other if it is.
+- `getTimestamp(s: string)`: Create a timestamp string with prefix from `s`
+- `gitStamp(s: string)`: Add a git stamp in the form of a timestamp with prefix from `s`
