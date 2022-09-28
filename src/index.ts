@@ -23,7 +23,7 @@ export function writeFile(
   path: string,
   text: string,
   { silent = false }: { silent?: boolean } = {}
-) {
+): void {
   if (!silent) {
     task(`Write file ${stringify(path)}`)
   }
@@ -41,11 +41,14 @@ export function writeFile(
 /**
  * Read a file and return its text
  */
-export function readFile(path: string) {
+export function readFile(path: string): string {
   return fs.readFileSync(path, "utf-8")
 }
 
-export function ensureFileContains(path: string, find: string | RegExp) {
+/**
+ * Task to read a file and confirm that it contains a specific string or matches a specific RegExp.
+ */
+export function ensureFileContains(path: string, find: string | RegExp): void {
   task(`Confirm file ${stringify(path)}\n  contains ${stringify(find)}`)
   const text = readFile(path)
   let includes: boolean
@@ -64,7 +67,7 @@ export function ensureFileContains(path: string, find: string | RegExp) {
 /**
  * Returns whether a file at the given path exists
  */
-export function fileExists(path: string) {
+export function fileExists(path: string): boolean {
   return fs.existsSync(path)
 }
 
@@ -84,7 +87,7 @@ export function ensureFileExists(path: string) {
 /**
  * Empties the given dir
  */
-export function emptyDir(dir: string) {
+export function emptyDir(dir: string): void {
   task(`Empty dir ${stringify(dir)}`)
   if (
     dir.startsWith("~") ||
@@ -101,7 +104,7 @@ export function emptyDir(dir: string) {
 /**
  * Check path is empty (no file exists, no dir exists or dir exists but is empty)
  */
-export function isEmpty(path: string) {
+export function isEmpty(path: string): boolean {
   if (!fileExists(path)) {
     return true
   }
@@ -111,7 +114,7 @@ export function isEmpty(path: string) {
 /**
  * Ensure path is empty (no file exists, no dir exists or dir exists but is empty)
  */
-export function ensureEmpty(path: string) {
+export function ensureEmpty(path: string): void {
   task(`Ensure path ${stringify(path)} is empty`)
   const empty = isEmpty(path)
   if (empty) {
@@ -124,7 +127,7 @@ export function ensureEmpty(path: string) {
 /**
  * Remove file if it exists.
  */
-export function removeFileIfExists(path: string) {
+export function removeFileIfExists(path: string): void {
   task(`Remove file ${stringify(path)}`)
   if (!fs.pathExistsSync(path)) {
     pass(`File does not exist. Okay to continue.`)
@@ -140,6 +143,10 @@ export function removeFileIfExists(path: string) {
 
 export type ExistsOptions = "fail" | "skip" | "overwrite" | "ask"
 
+/**
+ * Returns a diff of two files at the given paths.
+ * Returns null if they are the same.
+ */
 export function diffFile(a: string, b: string): string | null {
   const aText = readFile(a)
   const bText = readFile(b)
@@ -172,7 +179,7 @@ export function copyFile(
     exists: "fail",
     silent: false,
   }
-) {
+): void {
   if (!silent) {
     task(`Copy file ${stringify(src)}\n  to ${stringify(dest)}`)
   }
@@ -225,7 +232,7 @@ export function copyFile(
  * If files exist in the destination directory that also exist in the source
  * directory (i.e. there would be an overwrite) we throw an error.
  */
-export function copyDir(src: string, dest: string) {
+export function copyDir(src: string, dest: string): void {
   task(`Copy dir ${stringify(src)}\n  to ${stringify(dest)}`)
   const dir = Path.dirname(dest)
   fs.ensureDirSync(dir)
@@ -295,6 +302,12 @@ export function copyDir(src: string, dest: string) {
 //   pass(`Completed`)
 // }
 
+/**
+ * Takes a `src` file, makes some replacements and writes them to the `dest`
+ * file. In the case where we are expecting a certain amount of replacements,
+ * we can specify a `count` option. If the number of replacements doesn't match
+ * exactly, the `replaceInFile` fails and the file is not written.
+ */
 export function replaceInFile({
   src,
   dest,
@@ -307,7 +320,7 @@ export function replaceInFile({
   find: RegExp | string
   replace: string | ((match: RegExpMatchArray) => string)
   count?: number | null
-}) {
+}): void {
   task(
     `Replace in ${stringify(src)}
   to ${stringify(dest)}
@@ -344,13 +357,14 @@ export function replaceInFile({
 }
 
 /**
- * Takes a file and replaces some text in the file in place.
+ * Takes a file, runs it through the `process` argument, then writes it to the
+ * dest.
  */
 export function processFile(
   src: string,
   dest: string,
   process: (input: string) => string
-) {
+): void {
   task(
     `Process
   src: ${stringify(src)}
@@ -364,6 +378,8 @@ export function processFile(
 }
 
 /**
+ * Exit the script immediately.
+ *
  * Add a blank line to make output cleaner.
  *
  * NOTE:
@@ -374,7 +390,7 @@ export function processFile(
  * Even though we show the error messages, the ugliness of the different colors
  * is a nice visual indicator that we need to pay attention.
  */
-export function exit() {
+export function exit(): never {
   console.log("")
   process.exit(1)
 }

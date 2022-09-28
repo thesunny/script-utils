@@ -34,7 +34,7 @@ export function spawn(
 export function exec(
   cmd: string,
   { silent = false }: { silent?: boolean } = { silent: false }
-) {
+): string {
   /**
    * NOTE: Add 'utf8' to encoding so that `execSync` return type is a string
    */
