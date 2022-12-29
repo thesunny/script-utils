@@ -9,6 +9,7 @@ export * from "./log"
 export * from "./logger"
 import { logger } from "./logger"
 export { logger } from "./logger"
+export * from "./find-package-json"
 
 export const prompt = promptSync({ sigint: true })
 
