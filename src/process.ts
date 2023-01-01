@@ -1,28 +1,6 @@
 import { spawnSync, execSync } from "child_process"
 
 /**
- * Spawn a command to execute.
- *
- * Returns a stream for `stdout` and `stderr`. Allow for putting data into
- * it from `{ value }` in options.
- */
-export function spawn(
-  cmd: string,
-  args: string[],
-  { value = "" }: { value?: string } = { value: "" }
-): { stdout: string; stderr: string } {
-  const result = spawnSync(cmd, args, {
-    input: value,
-    encoding: "utf8",
-    stdio: ["pipe", "pipe", "pipe"],
-  })
-  if (result.status !== 0) {
-    throw new Error(result.stderr)
-  }
-  return result
-}
-
-/**
  * Executes a command.
  *
  * Uses a simpler calling method than `spawn`.
@@ -45,4 +23,26 @@ export function exec(
     options.stdio = "pipe"
   }
   return execSync(cmd, options).trim()
+}
+
+/**
+ * Spawn a command to execute.
+ *
+ * Returns a stream for `stdout` and `stderr`. Allow for putting data into
+ * it from `{ value }` in options.
+ */
+export function spawn(
+  cmd: string,
+  args: string[],
+  { value = "" }: { value?: string } = { value: "" }
+): { stdout: string; stderr: string } {
+  const result = spawnSync(cmd, args, {
+    input: value,
+    encoding: "utf8",
+    stdio: ["pipe", "pipe", "pipe"],
+  })
+  if (result.status !== 0) {
+    throw new Error(result.stderr)
+  }
+  return result
 }

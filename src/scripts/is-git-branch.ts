@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { stringify, task, pass, fail } from "../log"
-import { getGitBranch } from "../git"
+import { getGitBranch } from ".."
 
 const [, , expectedBranch] = process.argv as (string | undefined)[]
 

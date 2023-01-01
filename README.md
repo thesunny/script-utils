@@ -172,6 +172,5 @@ Haven't documented these fully yet but here's the method names.
 - `assertGitClean()`: assert that there are no uncommitted changes
 - `revListCount(leftBranch: string, rightBranch: string)`: Looks for commits in one branch but not the other
 - `canFastForwardToRight(leftBranch: string, rightBranch: string)`: Returns true if rightBranch can be fast forwarded from leftBranch
-- `isGitFastForward(aBranch: string, bBranch: string)`: I think this is redundant with `canFastForwardToRight`. Check it and remove one or the other if it is.
 - `getTimestamp(s: string)`: Create a timestamp string with prefix from `s`
 - `gitStamp(s: string)`: Add a git stamp in the form of a timestamp with prefix from `s`

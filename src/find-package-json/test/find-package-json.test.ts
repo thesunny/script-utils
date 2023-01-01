@@ -1,5 +1,4 @@
 import { findPackagePaths, findPackages } from ".."
-import jsome from "jsome"
 
 describe("findPackageJson", () => {
   it("should find all the package.json files", async () => {
