@@ -8,7 +8,6 @@ import { task, pass, fail, stringify } from "../log-utils"
  * If files exist in the destination directory that also exist in the source
  * directory (i.e. there would be an overwrite) we throw an error.
  */
-
 export function copyDir(src: string, dest: string): void {
   task(`Copy dir ${stringify(src)}\n  to ${stringify(dest)}`)
   const dir = Path.dirname(dest)

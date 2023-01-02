@@ -1,4 +1,5 @@
 import child_process from "child_process"
+import fs from "fs-extra"
 
 /**
  * IMPORTANT!
@@ -54,4 +55,28 @@ export function mockExec(expectedCmd: string | null | undefined, text: string) {
  */
 export function $(s: string | RegExp) {
   return expect.stringMatching(s)
+}
+
+/**
+ * Empty the working dir before each test is executed and once after all
+ * tests are executed.
+ *
+ * IMPORTANT!
+ *
+ * Because all the individual tests share a directory, we need to run all of
+ * our tests sequentially.
+ *
+ * To do this, we have set our unit tests to run in `package.json` with the
+ * the option `--runInBand` which forces each test file to finish before
+ * running the next one. This slows execution down and eventually, we may
+ * wish to migrate so each test file executes in its own directory.
+ */
+export function resetDir(dir = ".test", clearDirAfterTest = true) {
+  beforeEach(() => {
+    fs.emptyDirSync(dir)
+  })
+
+  afterAll(() => {
+    fs.emptyDirSync(dir)
+  })
 }
