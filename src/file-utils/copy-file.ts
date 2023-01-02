@@ -1,7 +1,7 @@
 import fs from "fs-extra"
 import Path from "path"
 
-import { prompt } from ".."
+import { prompt } from "../core-utils"
 import { fail, pass, skip, stringify, task } from "../log-utils"
 import { logger } from "../logger"
 import { diffFile } from "./diff-file"
