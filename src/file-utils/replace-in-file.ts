@@ -1,7 +1,7 @@
-import { task, pass, fail, stringify } from "../log-utils"
+import { fail, pass, stringify,task } from "../log-utils"
 import { escapeRegExp } from "./escape-reg-exp"
-import { writeFile } from "./write-file"
 import { readFile } from "./read-file"
+import { writeFile } from "./write-file"
 
 /**
  * Takes a `src` file, makes some replacements and writes them to the `dest`

@@ -1,5 +1,5 @@
+import { fail,pass, task } from ".."
 import { exec } from "../process"
-import { task, pass, fail } from ".."
 
 /**
  * Returns true if the current git repository is clean (i.e. there are no

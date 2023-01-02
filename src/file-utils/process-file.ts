@@ -1,6 +1,6 @@
-import { task, pass, stringify } from "../log-utils"
-import { writeFile } from "./write-file"
+import { pass, stringify,task } from "../log-utils"
 import { readFile } from "./read-file"
+import { writeFile } from "./write-file"
 
 /**
  * Takes a file, runs it through the `process` argument, then writes it to the

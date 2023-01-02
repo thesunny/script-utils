@@ -1,6 +1,6 @@
 import fs from "fs-extra"
-import { PackageJson } from "type-fest"
 import { globbySync } from "globby"
+import { PackageJson } from "type-fest"
 
 /**
  * Based on code from Chat GPT! Amazingly, just add types, and it works.

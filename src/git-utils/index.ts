@@ -1,5 +1,5 @@
+export * from "./git-branch"
 export * from "./git-can-fast-forward-to-right"
 export * from "./git-clean"
-export * from "./git-branch"
 export * from "./git-stamp"
 export * from "./git-tags"

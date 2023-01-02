@@ -1,6 +1,6 @@
 #!/usr/bin/env node
-import { task, pass, fail } from "../log-utils"
 import { isGitClean } from ".."
+import { fail,pass, task } from "../log-utils"
 
 task("Check if git is clean")
 if (isGitClean()) {

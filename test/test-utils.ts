@@ -77,6 +77,8 @@ export function resetDir(dir = ".test", clearDirAfterTest = true) {
   })
 
   afterAll(() => {
-    fs.emptyDirSync(dir)
+    if (clearDirAfterTest) {
+      fs.emptyDirSync(dir)
+    }
   })
 }

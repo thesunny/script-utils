@@ -1,6 +1,7 @@
 import fs from "fs-extra"
 import Path from "path"
-import { task, pass, fail, stringify } from "../log-utils"
+
+import { fail, pass, stringify, task } from "../log-utils"
 
 /**
  * Copy dir from src to dest creating the dest dir if required

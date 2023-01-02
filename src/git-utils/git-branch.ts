@@ -1,5 +1,5 @@
+import { fail,pass, stringify, task } from ".."
 import { exec } from "../process"
-import { stringify, task, pass, fail } from ".."
 
 /**
  * Returns name of current git branch

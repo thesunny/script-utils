@@ -1,7 +1,9 @@
-import { resetDir } from "../test-utils"
+import fs from "fs-extra"
+
 import * as utils from "~/src"
 import { logger } from "~/src"
-import fs from "fs-extra"
+
+import { resetDir } from "../test-utils"
 
 describe("empty-dir", () => {
   resetDir()
