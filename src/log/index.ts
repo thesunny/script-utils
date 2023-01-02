@@ -1,5 +1,5 @@
 import chalk from "chalk"
-import { logger } from "./logger"
+import { logger } from "../logger"
 
 /**
  * For internal use. Create a Log method that uses a chalk function for styling.
@@ -37,7 +37,6 @@ export function task(text: string) {
  * Shortcut `pass` method with a checkmark
  */
 export function pass(text: string) {
-  // log.pass(`  ✓ ${text}\n`)
   log.pass(`  ✓ ${text}\n`)
 }
 
