@@ -5,7 +5,9 @@ import { fail, pass, stringify, task } from "../log-utils"
 import { fileExists } from "./file-exists"
 
 /**
- * Create a file with the given text
+ * Task:
+ *
+ * Create a file with the given text.
  */
 
 export function writeFile(

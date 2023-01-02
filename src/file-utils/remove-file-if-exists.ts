@@ -3,6 +3,8 @@ import fs from "fs-extra"
 import { fail, pass, stringify, task } from "../log-utils"
 
 /**
+ * Task:
+ *
  * Remove file if it exists.
  */
 

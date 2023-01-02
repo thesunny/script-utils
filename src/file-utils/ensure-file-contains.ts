@@ -2,7 +2,11 @@ import { fail, pass, stringify, task } from "../log-utils"
 import { readFile } from "./read-file"
 
 /**
- * Task to read a file and confirm that it contains a specific string or matches a specific RegExp.
+ * Task:
+ *
+ * Reads a file at the given path and looks for the given `find` value which can
+ * be a `string` or `RegExp`. If it is found, then the task passes. If the
+ * string is not found, the task fails.
  */
 
 export function ensureFileContains(path: string, find: string | RegExp): void {

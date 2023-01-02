@@ -3,8 +3,10 @@ import { readFile } from "./read-file"
 import { writeFile } from "./write-file"
 
 /**
- * Takes a file, runs it through the `process` argument, then writes it to the
- * dest.
+ * Task:
+ *
+ * Takes a file, runs it through the `process` argument which is a function,
+ * then writes the return value of `process` to the dest.
  */
 
 export function processFile(

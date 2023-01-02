@@ -3,7 +3,9 @@ import { diffStringsUnified } from "jest-diff"
 import { readFile } from "./read-file"
 
 /**
- * Returns a diff of two files at the given paths.
+ * Returns a human readable diff of the two files at the given paths expressed
+ * as a `string`.
+ *
  * Returns null if they are the same.
  */
 

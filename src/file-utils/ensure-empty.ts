@@ -2,7 +2,13 @@ import { fail, pass, stringify, task } from "../log-utils"
 import { isEmpty } from "./is-empty"
 
 /**
- * Ensure path is empty (no file exists, no dir exists or dir exists but is empty)
+ * Task:
+ *
+ * Ensure path is empty which means that all of the following are true
+ *
+ * - no file exists at path
+ * - no dir exists at path or if a dir exists it has no files or subdirectories
+ *   in it
  */
 
 export function ensureEmpty(path: string): void {

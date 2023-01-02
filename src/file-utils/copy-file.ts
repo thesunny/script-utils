@@ -7,19 +7,32 @@ import { logger } from "../logger"
 import { diffFile } from "./diff-file"
 
 export type ExistsOptions = "fail" | "skip" | "overwrite" | "ask"
+
 /**
+ * Task:
+ *
  * Copy file from src to dest creating the dest dir if required.
  *
- * If `dest` exists, we throw an error. We do this because we want our
- * scripts to be clean. We should take explicit steps to remove any file
- * existing at the destination in another part of the script. If we don't,
- * it's easy to end up in a situation where the `copyFile` never executed but
- * we don't know that because overwriting it happens without doing so
- * explicitly.
+ * If `dest` exists, we throw an error by default. We do this because we want
+ * our scripts to be clean. We should take explicit steps to remove any file
+ * existing at the destination in another part of the script. If we don't, it's
+ * easy to end up in a situation where the `copyFile` never executed but we
+ * don't know that because overwriting it happens without doing so explicitly.
+ *
+ * In some situations, when we are copying a fail, we want to treat an existing
+ * file in a specific way that may be different from failing. Here are all the
+ * options for handling a file that exists at the destination:
+ *
+ * - `fail`: The copy fails
+ * - `skip`: The copy doesn't happen, but the task doesn't fail. Instead, it
+ *   informs to the console that the file was skipped.
+ * - `overwrite`: The dest file is removed and the copy is allowed to continue
+ * - `ask`: If the dest file exists, then we show a diff of the previous and
+ *   new file and ask the user if they want to overwrite or not.
  *
  * Can be called with a `silent` option which will supress logging of only the
- * `task` and `pass`. We may later want to suppress others like `overwrite`
- * but we'll leave it for now.
+ * `task` and `pass`. We may later want to suppress others like `overwrite` but
+ * we'll leave it for now.
  */
 
 export function copyFile(

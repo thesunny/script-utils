@@ -3,7 +3,8 @@ import fs from "fs-extra"
 import { fileExists } from "./file-exists"
 
 /**
- * Check path is empty (no file exists, no dir exists or dir exists but is empty)
+ * Check path is empty (no file exists, no dir exists or dir exists but is
+ * empty)
  */
 
 export function isEmpty(path: string): boolean {

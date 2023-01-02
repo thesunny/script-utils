@@ -4,10 +4,18 @@ import { readFile } from "./read-file"
 import { writeFile } from "./write-file"
 
 /**
+ * Task:
+ *
  * Takes a `src` file, makes some replacements and writes them to the `dest`
  * file. In the case where we are expecting a certain amount of replacements,
  * we can specify a `count` option. If the number of replacements doesn't match
- * exactly, the `replaceInFile` fails and the file is not written.
+ * exactly the `count`, the `replaceInFile` fails and the file is not written.
+ *
+ * This is especially useful when doing some sort of code patching. When doing
+ * a code patch, you know how many replacements there should be; however, if
+ * the code you are patching is updated, either the `find` argument can't be
+ * found or we find too many of them. In this case, we don't want to blindly
+ * patch, we would want to get an error.
  */
 
 export function replaceInFile({
