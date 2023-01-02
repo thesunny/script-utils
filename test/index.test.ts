@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable no-secrets/no-secrets */
-import * as util from ".."
+import * as util from "~/src"
 import fs from "fs-extra"
-import { prompt } from ".."
-import { logger } from "../logger"
+import { prompt, logger } from "~/src"
 
 /**
  * Mock `prompt-sync`

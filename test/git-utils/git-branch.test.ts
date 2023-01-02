@@ -1,6 +1,6 @@
-import * as utils from ".."
-import { logger } from "../../logger"
-import { $, mockExec } from "./test-utils"
+import * as utils from "~/src"
+import { logger } from "~/src"
+import { $, mockExec } from "../test-utils"
 
 /**
  * NOTE: `test-utils` includes this, but still required in this page.

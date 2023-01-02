@@ -1,6 +1,6 @@
-import * as utils from ".."
-import { logger } from "../../logger"
-import { $ } from "./test-utils"
+import * as utils from "~/src"
+import { logger } from "~/src"
+import { $ } from "../test-utils"
 
 describe("git", () => {
   describe("timestamp", () => {
