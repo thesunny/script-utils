@@ -1,6 +1,6 @@
 import fs from "fs-extra"
 
-import { fail, pass, stringify,task } from "../log-utils"
+import { fail, pass, stringify, task } from "../log-utils"
 
 /**
  * Remove file if it exists.

@@ -1,4 +1,4 @@
-import { fail, pass, stringify,task } from "../log-utils"
+import { fail, pass, stringify, task } from "../log-utils"
 import { escapeRegExp } from "./escape-reg-exp"
 import { readFile } from "./read-file"
 import { writeFile } from "./write-file"

@@ -1,4 +1,4 @@
-import { pass, skip,task } from ".."
+import { pass, skip, task } from ".."
 import { exec } from "../process"
 import { assertGitClean } from "./git-clean"
 

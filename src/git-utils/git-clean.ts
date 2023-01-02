@@ -1,4 +1,4 @@
-import { fail,pass, task } from ".."
+import { fail, pass, task } from ".."
 import { exec } from "../process"
 
 /**

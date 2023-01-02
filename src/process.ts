@@ -1,4 +1,4 @@
-import { execSync,spawnSync } from "child_process"
+import { execSync, spawnSync } from "child_process"
 
 /**
  * Executes a command.

@@ -1,4 +1,4 @@
-import { fail, pass, stringify,task } from "../log-utils"
+import { fail, pass, stringify, task } from "../log-utils"
 import { fileExists } from "./file-exists"
 
 /**
