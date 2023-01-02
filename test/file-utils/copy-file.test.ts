@@ -83,10 +83,26 @@ describe("copyFile", () => {
 
   describe("exists=ask", () => {
     afterEach(() => {
+      /**
+       * Clears the mock.calls, mock.instances, mock.contexts and mock.results
+       * properties of all mocks.
+       */
       jest.clearAllMocks()
-      jest.restoreAllMocks()
     })
     afterAll(() => {
+      /**
+       * Resets the state of all mocks.
+       *
+       * Clears all information stored in the mockFn.mock.calls,
+       * mockFn.mock.instances, mockFn.mock.contexts and mockFn.mock.results
+       * arrays. Often this is useful when you want to clean up a mocks usage
+       * data between two assertions. Removes any mocked return values or
+       * implementations.
+       *
+       * This is useful when you want to completely reset a mock back to its
+       * initial state. (Note that resetting a spy will result in a function
+       * with no return value).
+       */
       jest.resetAllMocks()
     })
 
