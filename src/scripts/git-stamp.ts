@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-import { task, pass, fail } from "../log"
+import { task, pass, fail } from "../log-utils"
 import { gitStamp } from ".."
 
 const [, , prefix] = process.argv as (string | undefined)[]

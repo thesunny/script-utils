@@ -1,7 +1,7 @@
 import fs from "fs-extra"
 import Path from "path"
 import { diffStringsUnified } from "jest-diff"
-import { task, pass, fail, skip, stringify } from "../log"
+import { task, pass, fail, skip, stringify } from "../log-utils"
 import { logger } from "../logger"
 import { prompt } from ".."
 
