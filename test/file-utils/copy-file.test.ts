@@ -9,14 +9,10 @@ import { $, resetDir } from "../test-utils"
  *
  * https://stackoverflow.com/questions/61950048/how-to-test-a-linear-node-script-with-jest
  */
-jest.mock(
-  "prompt-sync",
-  () => {
-    const prompt = jest.fn()
-    return jest.fn(() => prompt)
-  },
-  { virtual: true }
-)
+jest.mock("prompt-sync", () => {
+  const prompt = jest.fn()
+  return jest.fn(() => prompt)
+})
 
 /**
  * Gives us typing on mocked objects
