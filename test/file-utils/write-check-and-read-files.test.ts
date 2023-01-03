@@ -5,10 +5,10 @@ import { logger } from "~/src"
 import { $, resetDir } from "../test-utils"
 
 describe("write, check and read files", () => {
-  resetDir(".test/multi-file")
+  const dir = resetDir("${dir}")
 
   it("should writeFile, check fileExists, readFile", async () => {
-    const PATH = ".test/multi-file/write-file/alphabet.txt"
+    const PATH = `${dir}/alphabet.txt`
     const ALPHABET = "abcdefghijklmnopqrstuvwxyz"
 
     const beforeFileExists = utils.fileExists(PATH)
@@ -27,7 +27,7 @@ describe("write, check and read files", () => {
   })
 
   it("should fail writeFile if file exists", async () => {
-    const PATH = ".test/multi-file/write-file/alphabet.txt"
+    const PATH = `${dir}/alphabet.txt`
     const ALPHABET = "abcdefghijklmnopqrstuvwxyz"
 
     const chunks = logger.collect(() => {

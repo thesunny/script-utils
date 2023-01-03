@@ -6,11 +6,10 @@ import { logger } from "~/src"
 import { $, resetDir } from "../test-utils"
 
 describe("removeFileIfExists", () => {
-  resetDir(".test/remove-file")
+  const dir = resetDir(".test/remove-file")
 
   it("should pass if file doesn't exist", async () => {
-    const PATH =
-      ".test/remove-file/src/file-we-cant-remove-because-it-does-not-exist.txt"
+    const PATH = `${dir}/src/file-we-cant-remove-because-it-does-not-exist.txt`
     const chunks = logger.collect(() => {
       utils.removeFileIfExists(PATH)
     })
@@ -18,7 +17,7 @@ describe("removeFileIfExists", () => {
   })
 
   it("should remove a file if it exists", async () => {
-    const PATH = ".test/remove-file/src/remove-file-that-exists.txt"
+    const PATH = `${dir}/src/remove-file-that-exists.txt`
     utils.writeFile(PATH, "hello", { silent: true })
 
     const chunks = logger.collect(() => {
@@ -28,7 +27,7 @@ describe("removeFileIfExists", () => {
   })
 
   it("should fail if its a directory", async () => {
-    const DIR = ".test/remove-file/src/dir-that-exists"
+    const DIR = `${dir}/src/dir-that-exists`
     fs.ensureDirSync(DIR)
     const chunks = logger.collect(() => {
       expect(() => utils.removeFileIfExists(DIR)).toThrow(/not a file/i)

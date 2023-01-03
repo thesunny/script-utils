@@ -81,4 +81,6 @@ export function resetDir(dir = ".test", clearDirAfterTest = true) {
       fs.emptyDirSync(dir)
     }
   })
+
+  return dir
 }

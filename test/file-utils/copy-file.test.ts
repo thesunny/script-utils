@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
+import path from "path"
+
 import * as utils from "~/src"
 import { logger, prompt as __prompt__ } from "~/src"
 
@@ -22,12 +24,13 @@ jest.mock("prompt-sync", () => {
 const prompt = jest.mocked(__prompt__)
 
 describe("copyFile", () => {
-  resetDir(".test/copy-file")
+  // console.log(path.basename(__filename).split(".")[0])
+  const dir = resetDir(".test/copy-file")
 
   describe("overwrite=fail (default)", () => {
     it("should copyFile", async () => {
-      const SRC_PATH = ".test/copy-file/copyFile/a/1.txt"
-      const DEST_PATH = ".test/copy-file/copyFile/b/1.txt"
+      const SRC_PATH = `${dir}/copyFile/a/1.txt`
+      const DEST_PATH = `${dir}/copyFile/b/1.txt`
       utils.writeFile(SRC_PATH, "lorem", { silent: true })
       expect(utils.fileExists(SRC_PATH)).toEqual(true)
       const chunks = logger.collect(() => {
@@ -38,8 +41,8 @@ describe("copyFile", () => {
     })
 
     it("should fail copyFile if dest exists and exists=fail", async () => {
-      const SRC_PATH = ".test/copy-file/copy-file-exists/a/1.txt"
-      const DEST_PATH = ".test/copy-file/copy-file-exists/b/1.txt"
+      const SRC_PATH = `${dir}/copy-file-exists/a/1.txt`
+      const DEST_PATH = `${dir}/copy-file-exists/b/1.txt`
       utils.writeFile(SRC_PATH, "src", { silent: true })
       utils.writeFile(DEST_PATH, "dest", { silent: true })
       const chunks = logger.collect(() => {
@@ -52,8 +55,8 @@ describe("copyFile", () => {
 
   describe("exists=overwrite", () => {
     it("should overwrite copyFile if dest exists and exists=overwrite", async () => {
-      const SRC_PATH = ".test/copy-file/copy-file-exists/a/1.txt"
-      const DEST_PATH = ".test/copy-file/copy-file-exists/b/1.txt"
+      const SRC_PATH = `${dir}/copy-file-exists/a/1.txt`
+      const DEST_PATH = `${dir}/copy-file-exists/b/1.txt`
       utils.writeFile(SRC_PATH, "src", { silent: true })
       utils.writeFile(DEST_PATH, "dest", { silent: true })
       const chunks = logger.collect(() => {
@@ -66,8 +69,8 @@ describe("copyFile", () => {
 
   describe("exists=skip", () => {
     it("should skip copyFile if dest exists and exists=skip", async () => {
-      const SRC_PATH = ".test/copy-file/copy-file-exists/a/1.txt"
-      const DEST_PATH = ".test/copy-file/copy-file-exists/b/1.txt"
+      const SRC_PATH = `${dir}/copy-file-exists/a/1.txt`
+      const DEST_PATH = `${dir}/copy-file-exists/b/1.txt`
       utils.writeFile(SRC_PATH, "src", { silent: true })
       utils.writeFile(DEST_PATH, "dest", { silent: true })
       const chunks = logger.collect(() => {
@@ -104,8 +107,8 @@ describe("copyFile", () => {
     })
 
     it("should ask if dest exists and exists=ask y overwrite", async () => {
-      const SRC_PATH = ".test/copy-file/copy-file-exists/a/1.txt"
-      const DEST_PATH = ".test/copy-file/copy-file-exists/b/1.txt"
+      const SRC_PATH = `${dir}/copy-file-exists/a/1.txt`
+      const DEST_PATH = `${dir}/copy-file-exists/b/1.txt`
       utils.writeFile(SRC_PATH, "src", { silent: true })
       utils.writeFile(DEST_PATH, "dest", { silent: true })
       prompt.mockReturnValueOnce("y")
@@ -122,8 +125,8 @@ describe("copyFile", () => {
     })
 
     it("should ask if dest exists and exists=ask n skip", async () => {
-      const SRC_PATH = ".test/copy-file/copy-file-exists/a/1.txt"
-      const DEST_PATH = ".test/copy-file/copy-file-exists/b/1.txt"
+      const SRC_PATH = `${dir}/copy-file-exists/a/1.txt`
+      const DEST_PATH = `${dir}/copy-file-exists/b/1.txt`
       utils.writeFile(SRC_PATH, "src", { silent: true })
       utils.writeFile(DEST_PATH, "dest", { silent: true })
       prompt.mockReturnValueOnce("n")
@@ -140,8 +143,8 @@ describe("copyFile", () => {
     })
 
     it("should ask if dest exists and exists=ask n skip", async () => {
-      const SRC_PATH = ".test/copy-file/copy-file-exists/a/1.txt"
-      const DEST_PATH = ".test/copy-file/copy-file-exists/b/1.txt"
+      const SRC_PATH = `${dir}/copy-file-exists/a/1.txt`
+      const DEST_PATH = `${dir}/copy-file-exists/b/1.txt`
       utils.writeFile(SRC_PATH, "src", { silent: true })
       utils.writeFile(DEST_PATH, "dest", { silent: true })
       prompt.mockReturnValueOnce("q")

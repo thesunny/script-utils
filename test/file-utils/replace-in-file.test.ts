@@ -4,11 +4,11 @@ import { logger } from "~/src"
 import { $, resetDir } from "../test-utils"
 
 describe("replaceInFile", () => {
-  resetDir(".test/replace-in-file")
+  const dir = resetDir(".temp/replace-in-file")
 
   it("should replaceInFile", async () => {
-    const SRC = ".test/replace-in-file/replace-in-file/src.txt"
-    const DEST = ".test/replace-in-file/replace-in-file/dest.txt"
+    const SRC = `${dir}/replace-in-file/src.txt`
+    const DEST = `${dir}/replace-in-file/dest.txt`
     const TEXT = `lorem ipsum dolar\nsit amet\nconsecteteur\nlorem ipsum dolar\nsit amet\nconsecteteur`
     const REPLACED_TEXT = `lorem IPSUM dolar\nsit amet\nconsecteteur\nlorem IPSUM dolar\nsit amet\nconsecteteur`
     utils.writeFile(SRC, TEXT, { silent: true })
@@ -30,8 +30,8 @@ describe("replaceInFile", () => {
   })
 
   it("should replaceInFile with find a string", async () => {
-    const SRC = ".test/replace-in-file/replace-in-file-find-string/src.txt"
-    const DEST = ".test/replace-in-file/replace-in-file-find-string/dest.txt"
+    const SRC = `${dir}/replace-in-file-find-string/src.txt`
+    const DEST = `${dir}/replace-in-file-find-string/dest.txt`
     const TEXT = `lorem ipsum dolar\nsit amet\nconsecteteur\nlorem ipsum dolar\nsit amet\nconsecteteur`
     const REPLACED_TEXT = `lorem IPSUM dolar\nsit amet\nconsecteteur\nlorem IPSUM dolar\nsit amet\nconsecteteur`
     utils.writeFile(SRC, TEXT, { silent: true })
@@ -53,8 +53,8 @@ describe("replaceInFile", () => {
   })
 
   it("should replaceInFile with find a string", async () => {
-    const SRC = ".test/replace-in-file/replace-in-file-replace-string/src.txt"
-    const DEST = ".test/replace-in-file/replace-in-file-replace-string/dest.txt"
+    const SRC = `${dir}/replace-in-file-replace-string/src.txt`
+    const DEST = `${dir}/replace-in-file-replace-string/dest.txt`
     const TEXT = `lorem ipsum dolar\nsit amet\nconsecteteur\nlorem ipsum dolar\nsit amet\nconsecteteur`
     const REPLACED_TEXT = `lorem IPSUM dolar\nsit amet\nconsecteteur\nlorem IPSUM dolar\nsit amet\nconsecteteur`
     utils.writeFile(SRC, TEXT, { silent: true })
