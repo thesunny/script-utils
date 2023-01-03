@@ -4,7 +4,7 @@ import { logger } from "~/src"
 import { $, resetDir } from "../test-utils"
 
 describe("processFile", () => {
-  const dir = resetDir(".test/process-file")
+  const dir = resetDir(__filename)
 
   it("should processFile", async () => {
     const SRC = `${dir}/process-file/src.txt`

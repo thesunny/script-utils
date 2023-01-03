@@ -1,5 +1,6 @@
 import child_process from "child_process"
 import fs from "fs-extra"
+import path from "path"
 
 /**
  * IMPORTANT!
@@ -58,29 +59,41 @@ export function $(s: string | RegExp) {
 }
 
 /**
- * Empty the working dir before each test is executed and once after all
+ * Empties a working temp dir before each test is executed and once after all
  * tests are executed.
  *
- * IMPORTANT!
+ * Here's how this works:
  *
- * Because all the individual tests share a directory, we need to run all of
- * our tests sequentially.
+ * - Takes as it's argument, the current filename of the unit test which should
+ *   be called with the value `__filename` which is replaced by the current
+ *   filename.
+ * - We create a `.temp` subdirectory based on that filename
+ * - That directory is cleared before each test
+ * - The directory is also cleared after all tests by default but this can
+ *   be overriden with the `clearDirAfterTest` argument
+ * - The `resetDir` must be called within the `describe` section of a unit
+ *   test.
  *
- * To do this, we have set our unit tests to run in `package.json` with the
- * the option `--runInBand` which forces each test file to finish before
- * running the next one. This slows execution down and eventually, we may
- * wish to migrate so each test file executes in its own directory.
+ * We create individual `.temp` directories because:
+ *
+ * - Each test file can run in parallel with other test files and so they
+ *   cannot share a directory or will step on each other
+ * - Within each test file, the individual tests run sequentially so it is safe
+ *   to reuse the temp directory within each `it` statement.
  */
-export function resetDir(dir = ".test", clearDirAfterTest = true) {
+export function resetDir(filename: string, clearDirAfterTest = true) {
+  const filebasename = path.basename(filename).split(".")[0]
+  const tempDir = `.temp/${filebasename}`
+
   beforeEach(() => {
-    fs.emptyDirSync(dir)
+    fs.emptyDirSync(tempDir)
   })
 
   afterAll(() => {
     if (clearDirAfterTest) {
-      fs.emptyDirSync(dir)
+      fs.emptyDirSync(tempDir)
     }
   })
 
-  return dir
+  return tempDir
 }

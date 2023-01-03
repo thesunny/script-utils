@@ -4,7 +4,7 @@ import { logger } from "~/src"
 import { $, resetDir } from "../test-utils"
 
 describe("replaceInFile", () => {
-  const dir = resetDir(".temp/replace-in-file")
+  const dir = resetDir(__filename)
 
   it("should replaceInFile", async () => {
     const SRC = `${dir}/replace-in-file/src.txt`

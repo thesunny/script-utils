@@ -6,7 +6,7 @@ import { logger } from "~/src"
 import { $, resetDir } from "../test-utils"
 
 describe("ensureEmpty", () => {
-  const dir = resetDir(".test/ensure-empty")
+  const dir = resetDir(__filename)
   it("should ensureEmpty pass", async () => {
     fs.mkdirSync(`${dir}/ensure-empty`)
     const chunks = logger.collect(() => {

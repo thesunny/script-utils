@@ -5,7 +5,7 @@ import { logger } from "~/src"
 import { $, resetDir } from "../test-utils"
 
 describe("write, check and read files", () => {
-  const dir = resetDir("${dir}")
+  const dir = resetDir(__filename)
 
   it("should writeFile, check fileExists, readFile", async () => {
     const PATH = `${dir}/alphabet.txt`

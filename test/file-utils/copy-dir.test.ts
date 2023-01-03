@@ -4,7 +4,7 @@ import { logger } from "~/src"
 import { $, resetDir } from "../test-utils"
 
 describe("copyDir", () => {
-  const dir = resetDir(".test/copy-dir")
+  const dir = resetDir(__filename)
 
   it("should copyDir", async () => {
     const SRC_DIR = `${dir}/a`

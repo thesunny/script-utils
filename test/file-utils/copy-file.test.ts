@@ -24,8 +24,7 @@ jest.mock("prompt-sync", () => {
 const prompt = jest.mocked(__prompt__)
 
 describe("copyFile", () => {
-  // console.log(path.basename(__filename).split(".")[0])
-  const dir = resetDir(".test/copy-file")
+  const dir = resetDir(__filename)
 
   describe("overwrite=fail (default)", () => {
     it("should copyFile", async () => {

@@ -6,7 +6,7 @@ import { logger } from "~/src"
 import { resetDir } from "../test-utils"
 
 describe("empty-dir", () => {
-  const dir = resetDir(".test/empty-dir")
+  const dir = resetDir(__filename)
 
   describe("emptyDir", () => {
     it("should emptyDir", async () => {

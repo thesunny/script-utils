@@ -6,7 +6,7 @@ import { logger } from "~/src"
 import { $, resetDir } from "../test-utils"
 
 describe("removeFileIfExists", () => {
-  const dir = resetDir(".test/remove-file")
+  const dir = resetDir(__filename)
 
   it("should pass if file doesn't exist", async () => {
     const PATH = `${dir}/src/file-we-cant-remove-because-it-does-not-exist.txt`
