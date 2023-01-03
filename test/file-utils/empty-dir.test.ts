@@ -6,13 +6,13 @@ import { logger } from "~/src"
 import { resetDir } from "../test-utils"
 
 describe("empty-dir", () => {
-  resetDir()
+  resetDir(".test/empty-dir")
 
   describe("emptyDir", () => {
     it("should emptyDir", async () => {
-      const DIR = ".test/a"
-      const PATH_1 = ".test/a/1.txt"
-      const PATH_2 = ".test/a/2.txt"
+      const DIR = ".test/empty-dir/a"
+      const PATH_1 = ".test/empty-dir/a/1.txt"
+      const PATH_2 = ".test/empty-dir/a/2.txt"
       logger.silence(() => {
         utils.writeFile(PATH_1, "lorem")
         utils.writeFile(PATH_2, "lorem")
@@ -32,16 +32,16 @@ describe("empty-dir", () => {
     })
 
     it("should return true if dir exists but is empty", async () => {
-      fs.mkdirSync(".test/empty")
-      const exists = utils.fileExists(".test/empty")
+      fs.mkdirSync(".test/empty-dir/empty")
+      const exists = utils.fileExists(".test/empty-dir/empty")
       expect(exists).toEqual(true)
-      expect(utils.isEmpty(".test/empty")).toEqual(true)
+      expect(utils.isEmpty(".test/empty-dir/empty")).toEqual(true)
     })
 
     it("should return false if dir exists has content", async () => {
-      fs.mkdirSync(".test/not-empty")
-      utils.writeFile(".test/not-empty/a.txt", "a", { silent: true })
-      expect(utils.isEmpty(".test/not-empty")).toEqual(false)
+      fs.mkdirSync(".test/empty-dir/not-empty")
+      utils.writeFile(".test/empty-dir/not-empty/a.txt", "a", { silent: true })
+      expect(utils.isEmpty(".test/empty-dir/not-empty")).toEqual(false)
     })
   })
 })

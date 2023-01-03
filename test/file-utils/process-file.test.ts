@@ -4,11 +4,11 @@ import { logger } from "~/src"
 import { $, resetDir } from "../test-utils"
 
 describe("processFile", () => {
-  resetDir()
+  resetDir(".test/process-file")
 
   it("should processFile", async () => {
-    const SRC = ".test/process-file/src.txt"
-    const DEST = ".test/process-file/dest.txt"
+    const SRC = ".test/process-file/process-file/src.txt"
+    const DEST = ".test/process-file/process-file/dest.txt"
     const TEXT = `Hello World!`
     const REPLACED_TEXT = `HELLO WORLD!`
     utils.writeFile(SRC, TEXT, { silent: true })

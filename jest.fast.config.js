@@ -9,6 +9,6 @@ const config = require("./jest.config")
  *
  * https://kulshekhar.github.io/ts-jest/docs/getting-started/options/
  */
-config.globals["ts-jest"].isolatedModules = true
+config.transform["^.+\\.[tj]sx?$"][1].isolatedModules = true
 
 module.exports = config

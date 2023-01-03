@@ -5,9 +5,9 @@ import { logger } from "~/src"
 import { $, resetDir } from "../test-utils"
 
 describe("ensureFileExists and ensureFileContains", () => {
-  resetDir()
+  resetDir(".test/ensure")
   it("should fail ensureFileExists", async () => {
-    const PATH = ".test/src/should-fail-ensureFileExists.txt"
+    const PATH = ".test/ensure/src/should-fail-ensureFileExists.txt"
     const chunks = logger.collect(() => {
       expect(() => utils.ensureFileExists(PATH)).toThrow(/File does not exist/)
     })
@@ -15,7 +15,7 @@ describe("ensureFileExists and ensureFileContains", () => {
   })
 
   it("should pass ensureFileExists", async () => {
-    const PATH = ".test/src/should-pass-ensureFileExists.txt"
+    const PATH = ".test/ensure/src/should-pass-ensureFileExists.txt"
     utils.writeFile(PATH, "abc", { silent: true })
 
     const chunks = logger.collect(() => {
@@ -25,7 +25,7 @@ describe("ensureFileExists and ensureFileContains", () => {
   })
 
   it("should fail ensureFileContains", async () => {
-    const PATH = ".test/src/alphabet.txt"
+    const PATH = ".test/ensure/src/alphabet.txt"
     const ALPHABET = "abcdefghijklmnopqrstuvwxyz"
     utils.writeFile(PATH, ALPHABET, { silent: true })
     const chunks = logger.collect(() => {
@@ -37,7 +37,7 @@ describe("ensureFileExists and ensureFileContains", () => {
   })
 
   it("should pass ensureFileContains with string and RegExp", async () => {
-    const PATH = ".test/src/alphabet.txt"
+    const PATH = ".test/ensure/src/alphabet.txt"
     const ALPHABET = "abcdefghijklmnopqrstuvwxyz"
     utils.writeFile(PATH, ALPHABET, { silent: true })
 

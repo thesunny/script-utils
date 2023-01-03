@@ -19,28 +19,11 @@ if (!fs.existsSync("tsconfig.ts-jest.json")) {
 
 module.exports = {
   setupFiles: ["./jest.setup.js"],
-  globals: {
-    "ts-jest": {
-      /**
-       * Change the tsconfig file used to `tsconfig.ts-jest.json`
-       */
-      tsconfig: "tsconfig.ts-jest.json",
-      /**
-       * `isolatedModules: false` is the default value but we add it here for
-       * clarity. Because it is not isolated, full type checking is performed
-       * on the test files. This makes the jest tests run slower but are more
-       * complete. This slow version should always be used in tests that must
-       * be passed before a deploy, for example, but `jest.fast.config.js`
-       * is useful when wanting to quickly test and get responses.
-       */
-      isolatedModules: false,
-    },
-  },
   /**
    * Configuration for getting `ts-jest` running
    * https://github.com/kulshekhar/ts-jest
    */
-  preset: "ts-jest",
+  // preset: "ts-jest",
   testEnvironment: "node",
   /**
    * The `transform` and `transformIgnorePatterns` is necessary to support
@@ -49,9 +32,30 @@ module.exports = {
    * https://github.com/kulshekhar/ts-jest/issues/970
    */
   transform: {
-    "^.+\\.[tj]sx?$": "ts-jest",
+    "^.+\\.[tj]sx?$": [
+      "ts-jest",
+      {
+        /**
+         * Change the tsconfig file used to `tsconfig.ts-jest.json`
+         */
+        tsconfig: "tsconfig.ts-jest.json",
+        /**
+         * Use `esm` set to true
+         */
+        useESM: true,
+        /**
+         * `isolatedModules: false` is the default value but we add it here for
+         * clarity. Because it is not isolated, full type checking is performed
+         * on the test files. This makes the jest tests run slower but are more
+         * complete. This slow version should always be used in tests that must
+         * be passed before a deploy, for example, but `jest.fast.config.js`
+         * is useful when wanting to quickly test and get responses.
+         */
+        isolatedModules: false,
+      },
+    ],
   },
-  transformIgnorePatterns: [`node_modules/(?!${esmModules})`],
+  transformIgnorePatterns: [`node_modules/(?!(${esmModules}))`],
   /**
    * Sometimes, our tests use temp files that we keep in a `.temp` directory.
    * These files are manipulated during the test and we don't want that to
