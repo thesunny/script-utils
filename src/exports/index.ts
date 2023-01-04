@@ -1,0 +1,5 @@
+/**
+ * An opinionated export in that we provide `globbySync` instead of `globby`
+ * because all of our scripts are designed to be `sync` for simplicity.
+ */
+export { globbySync } from "globby"

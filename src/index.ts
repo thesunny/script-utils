@@ -1,4 +1,5 @@
 export * from "./core-utils"
+export * from "./exports"
 export * from "./file-utils"
 export * from "./find-package-json"
 export * from "./git-utils"

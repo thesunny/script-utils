@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-import path from "path"
-
 import * as utils from "~/src"
 import { logger, prompt as __prompt__ } from "~/src"
 

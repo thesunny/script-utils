@@ -17,7 +17,7 @@ import path from "path"
 /**
  * To get the types
  */
-const $child_process = jest.mocked(child_process, true)
+const $child_process = jest.mocked(child_process)
 
 /**
  * Lets you mock a command line `execSync` which some of our scripts use.
