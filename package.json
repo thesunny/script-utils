@@ -3,6 +3,7 @@
   "version": "0.2.0",
   "license": "MIT",
   "author": "Sunny Hirai <thesunny@gmail.com>",
+  "type": "commonjs",
   "files": [
     ".dist/**/*"
   ],
