@@ -34,3 +34,4 @@ yarn-error.log
 eslint.log
 # ignore the increment typescript build info
 tsconfig.tsbuildinfo
+.yarn

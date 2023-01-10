@@ -1,6 +1,6 @@
 {
   "name": "@thesunny/script-utils",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "license": "MIT",
   "author": "Sunny Hirai <thesunny@gmail.com>",
   "type": "commonjs",
@@ -10,9 +10,9 @@
   "main": ".dist/src/index.js",
   "types": ".dist/src/index.d.ts",
   "bin": {
-    "is-git-clean": ".dist/src/scripts/is-git-clean.js",
+    "git-stamp": ".dist/src/scripts/git-stamp.js",
     "is-git-branch": ".dist/src/scripts/is-git-branch.js",
-    "git-stamp": ".dist/src/scripts/git-stamp.js"
+    "is-git-clean": ".dist/src/scripts/is-git-clean.js"
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.13",
@@ -42,7 +42,7 @@
   "dependencies": {
     "chalk": "^4",
     "fs-extra": "^10.0.0",
-    "globby": "^13.1.3",
+    "globby": "^11.1.0",
     "jest-diff": "^27.5.1",
     "jsome": "^2.5.0",
     "prompt-sync": "^4.2.0",
@@ -51,7 +51,7 @@
   "scripts": {
     "--- npm": "# build npm",
     "build:npm": "rm -rf ./.dist/ && tsc -p tsconfig.tsc.json",
-    "publish:npm": "yarn lint && yarn test:once && yarn build:npm && yarn publish || echo '\"npm publish --access=public' to publish to npm",
+    "publish:npm": "yarn lint && yarn test:once && yarn build:npm && yarn npm publish --access=public || echo '\"npm publish --access=public' to publish to npm",
     "--- test": "#",
     "test:once": "yarn test:clearcache && jest --config=jest.config.js",
     "test:watch": "jest --watch --config=jest.fast.config.js",
